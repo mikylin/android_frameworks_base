@@ -22,6 +22,9 @@
        SDK.  Instead, put them here. -->
   <private-symbols package="com.android.internal" />
 
+  <!-- Date Format -->
+  <java-symbol type="string" name="abbrev_wday_month_day_year" />
+
   <!-- Exact Time -->
   <java-symbol type="string" name="lc" />
   <java-symbol type="string" name="lm" />
