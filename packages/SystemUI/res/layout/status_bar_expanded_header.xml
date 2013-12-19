@@ -42,28 +42,33 @@
             android:layout_marginEnd="8dp"
             android:singleLine="true"
             android:textAppearance="@style/TextAppearance.StatusBar.Expanded.Clock"
+            android:background="@drawable/ic_notify_button_bg"
             android:layout_centerVertical="true"
+            android:clickable="true"
             />
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:background="@drawable/ic_notify_button_bg"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:gravity="center_vertical"
             android:layout_toEndOf="@id/clock"           
-            >	
-		<com.android.systemui.statusbar.policy.DateView 
-		    android:id="@+id/date"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:textAppearance="@style/TextAppearance.StatusBar.Expanded.Date"
-		    />
-		<com.android.systemui.statusbar.policy.LunarDateView
-		    android:id="@+id/lunardate"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:textAppearance="@style/TextAppearance.StatusBar.Expanded.Date"
-		    android:layout_below="@id/date"
-		    />
+            >        
+                <com.android.systemui.statusbar.policy.DateView 
+                    android:id="@+id/date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.StatusBar.Expanded.Date"
+                    />
+                <com.android.systemui.statusbar.policy.LunarDateView
+                    android:id="@+id/lunardate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.StatusBar.Expanded.Date"
+                    android:layout_below="@id/date"
+                    />
         </RelativeLayout>
 
     </RelativeLayout>
