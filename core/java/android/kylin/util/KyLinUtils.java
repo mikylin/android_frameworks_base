@@ -17,6 +17,7 @@
 package android.kylin.util;
 
 import android.content.res.Resources;
+import java.text.DecimalFormat;
 
 import java.util.Locale;
 
