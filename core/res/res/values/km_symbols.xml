@@ -59,4 +59,7 @@
   <!-- Network Speed Indicator -->
   <java-symbol type="integer" name="config_networkSpeedIndicatorRefreshTimeout" />
 
+  <!-- Screenshort Trash -->
+  <java-symbol type="string" name="trash" />
+ 
 </resources>
