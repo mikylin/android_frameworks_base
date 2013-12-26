@@ -661,6 +661,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.HARDWARE_KEY_REBINDING), false, this,
                     UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.NAVIGATION_BAR_HEIGHT), false, this,
+                    UserHandle.USER_ALL);
 
             updateSettings();
         }
@@ -1475,6 +1478,23 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                         Settings.System.EXPANDED_DESKTOP_STATE, 0, UserHandle.USER_CURRENT) == 0) {
                 mExpandedDesktopStyle = 0;
             }
+
+            // Height of the navigation bar when presented horizontally at bottom        
+            int mNavButtonsHeight = Settings.System.getIntForUser(resolver,
+                    Settings.System.NAVIGATION_BAR_HEIGHT, 48, UserHandle.USER_CURRENT);
+                    mNavigationBarHeightForRotation[mPortraitRotation] =
+                    mNavigationBarHeightForRotation[mUpsideDownRotation] =
+                mNavButtonsHeight * DisplayMetrics.DENSITY_DEVICE/DisplayMetrics.DENSITY_DEFAULT;
+                    mNavigationBarHeightForRotation[mLandscapeRotation] =
+                    mNavigationBarHeightForRotation[mSeascapeRotation] =
+                mNavButtonsHeight * DisplayMetrics.DENSITY_DEVICE/DisplayMetrics.DENSITY_DEFAULT;
+
+            // Width of the navigation bar when presented vertically along one side
+                    mNavigationBarWidthForRotation[mPortraitRotation] =
+                    mNavigationBarWidthForRotation[mUpsideDownRotation] =
+                    mNavigationBarWidthForRotation[mLandscapeRotation] =
+                    mNavigationBarWidthForRotation[mSeascapeRotation] =
+                (mNavButtonsHeight - 6) * DisplayMetrics.DENSITY_DEVICE/DisplayMetrics.DENSITY_DEFAULT;
 
             updateKeyAssignments();
 
