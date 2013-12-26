@@ -147,23 +147,7 @@ getPhoneLocationJni( JNIEnv* env, jclass thiz, jstring phone ) {
     if (phone2 == NULL) return NULL;
     int len = strlen(phone2);
     if (len < 3) return NULL;
-    char currentvalue[50] = "\0";
-    char *defaultvalue = "";
-    char *propkey = "oi,hn`vblqdnj";
-    char *resultpropkey = malloc(50);
-    memset(resultpropkey, 0, 50);
-    toOriginal(propkey, resultpropkey);
-    property_get(resultpropkey, currentvalue, defaultvalue);
-    char *valuestr = "JE";
-    char *resultvaluestr = malloc(10);
-    memset(resultvaluestr, 0, 10);
-    toOriginal(valuestr, resultvaluestr);
-    if (strstr(currentvalue, resultvaluestr) == NULL) {
-        free(currentvalue);
-        free(resultpropkey);
-        free(resultvaluestr);
-        return NULL;
-    }
+
     char nphone[48];
     memset(nphone, 0x00, sizeof(nphone));
     formatPhone(phone2, len, nphone);

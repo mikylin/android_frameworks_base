@@ -20,13 +20,12 @@
 #include <jni.h>
 #include <assert.h>
 #include "androidjni.h"
-#include "utils.h"
 
 //#define DEBUG
 
 #ifdef DEBUG
 #include <android/log.h>
-#define TAG_JNI = "kylin-phoneloc"
+#define TAG_JNI = "jnireg"
 #endif
 
 
