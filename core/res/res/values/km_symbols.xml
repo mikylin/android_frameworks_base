@@ -68,4 +68,9 @@
   <java-symbol type="string" name="global_action_screen_record" />
   <java-symbol type="drawable" name="ic_lock_screen_record" />
 
+  <!-- Active Display -->
+  <java-symbol type="dimen" name="lockscreen_target_inset" />
+  <java-symbol type="dimen" name="glowpad_notification_font_size" />
+  <java-symbol type="dimen" name="glowpad_notification_text_radius" />
+
 </resources>
