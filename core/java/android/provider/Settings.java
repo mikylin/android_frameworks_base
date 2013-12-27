@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2006 The Android Open Source Project
+ * Copyright (C) 2014 The KylinMod OpenSource Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -3132,6 +3133,30 @@ public final class Settings {
          * @hide
          */
         public static final String INACCURATE_PROXIMITY_WORKAROUND = "inaccurate_proximity_sensor";
+
+        /**
+         * Whether power menu screen record is enabled
+         * @hide
+         */
+
+        public static final String POWER_MENU_SCREENRECORD_ENABLED = "power_menu_screenrecord_enabled";
+        /**
+         * Width and height of output vide expressed in WxH
+         * @hide
+         */
+        public static final String SCREEN_RECORDER_OUTPUT_DIMENSIONS = "screen_recorder_output_dimensions";
+
+        /**
+         * Screen recorder framerate in bits per second
+         * @hide
+         */
+        public static final String SCREEN_RECORDER_BITRATE = "screen_recorder_bitrate";
+
+        /**
+         * Whether to include audio when recording a video
+         * @hide
+         */
+        public static final String SCREEN_RECORDER_RECORD_AUDIO = "screen_recorder_record_audio";
 
         /**
          * ListView Animations

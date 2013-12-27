@@ -387,6 +387,27 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
                 });
         }
 
+        // next: screenrecord
+        // only shown if enabled, disabled by default
+        boolean showScreenrecord = Settings.System.getIntForUser(cr,
+                Settings.System.POWER_MENU_SCREENRECORD_ENABLED, 0, UserHandle.USER_CURRENT) == 1;
+        if (showScreenrecord) {
+            mItems.add(
+                new SinglePressAction(com.android.internal.R.drawable.ic_lock_screen_record, com.android.internal.R.string.global_action_screen_record) {
+                    public void onPress() {
+                        toggleScreenRecord();
+                    }
+
+                    public boolean showDuringKeyguard() {
+                        return true;
+                    }
+
+                    public boolean showBeforeProvisioning() {
+                        return true;
+                    }
+                });
+        }
+
         // next: expanded desktop toggle
         // only shown if enabled and expanded desktop is enabled, disabled by default
         boolean showExpandedDesktop =
@@ -662,6 +683,11 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
                 mHandler.postDelayed(mScreenshotTimeout, 10000);
             }
         }
+    }
+
+    private void toggleScreenRecord() {
+        final Intent recordIntent = new Intent("com.kylinmod.action.NOTIFY_RECORD_SERVICE");
+        mContext.sendBroadcast(recordIntent, "android.permission.RECORD_SCREEN");
     }
 
     private void prepareDialog() {
