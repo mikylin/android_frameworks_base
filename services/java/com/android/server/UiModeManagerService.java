@@ -266,6 +266,7 @@ final class UiModeManagerService extends IUiModeManager.Stub
          */
         mUiThemeMode = Settings.Secure.getIntForUser(mContext.getContentResolver(),
                 Settings.Secure.UI_THEME_MODE, mContext.getResources().getInteger(
+                com.android.internal.R.integer.config_uiThemeMode),
                 UserHandle.USER_CURRENT);
 
         mConfiguration.uiThemeMode = mUiThemeMode;
