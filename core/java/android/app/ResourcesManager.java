@@ -290,7 +290,7 @@ public class ResourcesManager {
                 DisplayMetrics dm = defaultDisplayMetrics;
                 final boolean hasOverrideConfiguration = key.hasOverrideConfiguration();
                 boolean themeChanged = (changes & ActivityInfo.CONFIG_THEME_RESOURCE) != 0;
-				final boolean themeChanged2 = (changes & ActivityInfo.CONFIG_UI_THEME_MODE) != 0;
+                final boolean themeChanged2 = (changes & ActivityInfo.CONFIG_UI_THEME_MODE) != 0;
                 if (themeChanged) {
                     AssetManager am = r.getAssets();
                     if (am.hasThemeSupport()) {

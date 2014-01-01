@@ -63,7 +63,7 @@ void android_Configuration_getFromJava(
             << ResTable_config::SHIFT_NAVHIDDEN;
 
     out->orientation = env->GetIntField(clazz, gConfigurationClassInfo.orientation);
-	out->uiThemeMode = env->GetIntField(clazz, gConfigurationClassInfo.uiThemeMode);
+    out->uiThemeMode = env->GetIntField(clazz, gConfigurationClassInfo.uiThemeMode);
     out->uiMode = env->GetIntField(clazz, gConfigurationClassInfo.uiMode);
 
     out->screenWidthDp = env->GetIntField(clazz, gConfigurationClassInfo.screenWidthDp);

@@ -70,7 +70,7 @@ public class UserTile extends QuickSettingsTile {
                         Log.e(TAG, "Couldn't show user switcher", e);
                     }
                 } else {
-				Intent intent = new Intent(Intent.ACTION_VIEW,
+                    Intent intent = new Intent(Intent.ACTION_VIEW,
                         ContactsContract.Profile.CONTENT_URI);
                     startSettingsActivity(intent);
                 }
