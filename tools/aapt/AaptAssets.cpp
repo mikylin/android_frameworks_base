@@ -329,7 +329,7 @@ AaptGroupEntry::getConfigValueForAxis(const ResTable_config& config, int axis)
             return config.screenLayout&ResTable_config::MASK_SCREENSIZE;
         case AXIS_ORIENTATION:
             return config.orientation;
-		case AXIS_UITHEMEMODE:
+        case AXIS_UITHEMEMODE:
             return config.uiThemeMode;
         case AXIS_UIMODETYPE:
             return (config.uiMode&ResTable_config::MASK_UI_MODE_TYPE);
@@ -708,7 +708,7 @@ success:
     this->screenWidthDp = widthdp;
     this->screenHeightDp = heightdp;
     this->orientation = orient;
-	this->uiThemeMode = uiThemeMode;
+    this->uiThemeMode = uiThemeMode;
     this->uiModeType = uiModeType;
     this->uiModeNight = uiModeNight;
     this->density = den;
@@ -1531,7 +1531,7 @@ int AaptGroupEntry::compare(const AaptGroupEntry& o) const
     if (v == 0) v = screenLayoutSize.compare(o.screenLayoutSize);
     if (v == 0) v = screenLayoutLong.compare(o.screenLayoutLong);
     if (v == 0) v = orientation.compare(o.orientation);
-	if (v == 0) v = uiThemeMode.compare(o.uiThemeMode);
+    if (v == 0) v = uiThemeMode.compare(o.uiThemeMode);
     if (v == 0) v = uiModeType.compare(o.uiModeType);
     if (v == 0) v = uiModeNight.compare(o.uiModeNight);
     if (v == 0) v = density.compare(o.density);
@@ -1564,7 +1564,7 @@ const ResTable_config& AaptGroupEntry::toParams() const
     getScreenLayoutSizeName(screenLayoutSize.string(), &params);
     getScreenLayoutLongName(screenLayoutLong.string(), &params);
     getOrientationName(orientation.string(), &params);
-	getUiThemeModeName(uiThemeMode.string(), &params);
+    getUiThemeModeName(uiThemeMode.string(), &params);
     getUiModeTypeName(uiModeType.string(), &params);
     getUiModeNightName(uiModeNight.string(), &params);
     getDensityName(density.string(), &params);

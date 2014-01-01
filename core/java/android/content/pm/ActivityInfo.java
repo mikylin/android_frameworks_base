@@ -459,7 +459,7 @@ public class ActivityInfo extends ComponentInfo
         Configuration.NATIVE_CONFIG_NAVIGATION,             // NAVIGATION
         Configuration.NATIVE_CONFIG_ORIENTATION,            // ORIENTATION
         Configuration.NATIVE_CONFIG_SCREEN_LAYOUT,          // SCREEN LAYOUT
-		Configuration.NATIVE_CONFIG_UI_THEME_MODE,          // UI THEME MODE
+        Configuration.NATIVE_CONFIG_UI_THEME_MODE,          // UI THEME MODE
         Configuration.NATIVE_CONFIG_UI_MODE,                // UI MODE
         Configuration.NATIVE_CONFIG_SCREEN_SIZE,            // SCREEN SIZE
         Configuration.NATIVE_CONFIG_SMALLEST_SCREEN_SIZE,   // SMALLEST SCREEN SIZE

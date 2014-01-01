@@ -89,7 +89,7 @@ final class UiModeManagerService extends IUiModeManager.Stub
     private boolean mComputedNightMode;
     private int mCurUiMode = 0;
     private int mSetUiMode = 0;
-	private int mSetUiThemeMode = 0;
+    private int mSetUiThemeMode = 0;
 
     private boolean mHoldingConfiguration = false;
     private Configuration mConfiguration = new Configuration();
@@ -405,7 +405,7 @@ final class UiModeManagerService extends IUiModeManager.Stub
             mSystemReady = true;
             mCarModeEnabled = mDockState == Intent.EXTRA_DOCK_STATE_CAR;
             updateComputedNightModeLocked();
-			updateUiThemeMode();
+            updateUiThemeMode();
             updateLocked(0, 0);
         }
     }
@@ -481,7 +481,7 @@ final class UiModeManagerService extends IUiModeManager.Stub
         if (mSetUiMode != mConfiguration.uiMode
                 || mSetUiThemeMode != mConfiguration.uiThemeMode) {
             mSetUiMode = mConfiguration.uiMode;
-			mSetUiThemeMode = mConfiguration.uiThemeMode;
+            mSetUiThemeMode = mConfiguration.uiThemeMode;
 
             try {
                 ActivityManagerNative.getDefault().updateConfiguration(mConfiguration);
