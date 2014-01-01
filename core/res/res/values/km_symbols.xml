@@ -73,4 +73,7 @@
   <java-symbol type="dimen" name="glowpad_notification_font_size" />
   <java-symbol type="dimen" name="glowpad_notification_text_radius" />
 
+  <!-- UI theme mode -->
+  <java-symbol type="integer" name="config_uiThemeMode" />
+
 </resources>
