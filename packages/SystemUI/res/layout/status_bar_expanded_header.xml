@@ -49,8 +49,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@drawable/ic_notify_button_bg"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
+            android:paddingStart="4dp"
+            android:paddingEnd="8dp"
             android:gravity="center_vertical"
             android:layout_toEndOf="@id/clock"           
             >        
