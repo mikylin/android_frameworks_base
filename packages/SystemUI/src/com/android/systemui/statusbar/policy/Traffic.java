@@ -24,6 +24,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.ContentObserver;
+import android.kylin.util.KyLinUtils;
 import android.net.ConnectivityManager;
 import android.net.TrafficStats;
 import android.os.SystemClock;
@@ -173,19 +174,6 @@ public class Traffic extends TextView {
         mTrafficHandler.sendEmptyMessage(0);
     }
 
-    private boolean getConnectAvailable() {
-        try {
-            ConnectivityManager connectivityManager = (ConnectivityManager) mContext
-                    .getSystemService(Context.CONNECTIVITY_SERVICE);
-            if (connectivityManager.getActiveNetworkInfo().isConnected())
-                return true;
-            else
-                return false;
-        } catch (Exception ex) {
-        }
-        return false;
-    }
-
     public void update() {
         mTrafficHandler.removeCallbacks(mRunnable);
         mTrafficHandler.postDelayed(mRunnable, mContext.getResources().getInteger(
@@ -201,10 +189,9 @@ public class Traffic extends TextView {
 
     private void updateSettings() {
         ContentResolver resolver = mContext.getContentResolver();
-        showTraffic = Settings.System.getIntForUser(resolver,
-                Settings.System.STATUS_BAR_TRAFFIC_STYLE,
+        showTraffic = Settings.System.getIntForUser(resolver, Settings.System.STATUS_BAR_TRAFFIC_STYLE,
                 0, UserHandle.USER_CURRENT);
-        if (showTraffic > 0 && getConnectAvailable()) {
+        if (showTraffic > 0 && KyLinUtils.isOnline(mContext)) {
             if (mAttached) {
                 updateTraffic();
             }
