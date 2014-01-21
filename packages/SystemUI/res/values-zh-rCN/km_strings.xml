@@ -19,4 +19,12 @@
     <!-- Title shown in recents popup for adding an application to the split view -->
     <string name="status_bar_recent_add_to_split_view">添加到拆分视图</string>
 
+    <!-- App sidebar -->
+    <string name="default_folder_text">文件夹</string>
+    <string name="title_activity_sidebar_configuration">应用栏内容设置</string>
+    <string name="action_save">保存</string>
+    <string name="toast_items_saved">应用栏项目已被保存.</string>
+    <string name="content_setup_instructions">长按任一项目上应用程序，并将其拖动且添加到应用栏上.\n\n现有的项目里，拖动任一应用进入应用栏的任意位置（已存在应用）里，会自动合并到文件夹中.\n\n若要将移除在应用栏的应用，只需将其拖出该应用栏即可！</string>
+    <string name="content_setup_dismiss">继续</string>
+
 </resources>
