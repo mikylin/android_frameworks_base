@@ -1916,8 +1916,17 @@ public final class Settings {
         /**
          * Defines the screen-off animation to display
          *
-         * @hide */
+         * @hide
+         */
         public static final String SCREEN_OFF_ANIMATION = "screen_off_animation";
+
+        /**
+         * Control which animation to use when turning the screen off
+         * 0 = electron beam
+         * 1 = fade
+         * @hide
+         */
+        public static final String SCREEN_ANIMATION_STYLE = "screen_animation_style";
 
         /**
          * Control whether the process CPU usage meter should be shown.
