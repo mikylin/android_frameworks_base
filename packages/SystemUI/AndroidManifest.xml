@@ -265,15 +265,18 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="com.android.systemui.Transparent"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
         <activity android:name=".statusbar.policy.activedisplay.DummyActivity"
-                  android:label=""
-                  android:taskAffinity=""
-                  android:excludeFromRecents="true"
-                  android:exported="true"
-                  android:theme="@style/Theme.DummyActivity">
+            android:label=""
+            android:taskAffinity=""
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:theme="@style/Theme.DummyActivity">
         </activity>
 
-  <!-- App sidebar -->
+        <!-- App sidebar -->
         <activity android:name=".statusbar.sidebar.SidebarConfigurationActivity"
                   android:label="@string/title_activity_sidebar_configuration"
                   android:taskAffinity=""
