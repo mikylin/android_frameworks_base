@@ -21,10 +21,32 @@
 
     <!-- App sidebar -->
     <string name="default_folder_text">文件夹</string>
-    <string name="title_activity_sidebar_configuration">应用栏内容设置</string>
+    <string name="title_activity_sidebar_configuration">侧边栏内容设置</string>
     <string name="action_save">保存</string>
-    <string name="toast_items_saved">应用栏项目已被保存.</string>
-    <string name="content_setup_instructions">长按任一项目上应用程序，并将其拖动且添加到应用栏上.\n\n现有的项目里，拖动任一应用进入应用栏的任意位置（已存在应用）里，会自动合并到文件夹中.\n\n若要将移除在应用栏的应用，只需将其拖出该应用栏即可！</string>
+    <string name="toast_items_saved">侧边栏项目已被保存.</string>
+    <string name="content_setup_instructions">长按任一项目上应用程序，并将其拖动且添加到侧边栏上.\n\n现有的项目里，拖动任一应用进入侧边栏的任意位置（已存在应用）里，会自动合并到文件夹中.\n\n若要将移除在侧边栏的应用，只需将其拖出该侧边栏即可！</string>
     <string name="content_setup_dismiss">继续</string>
+
+    <!-- HALO -->
+    <string name="accessibility_halo">打开HALO</string>
+    <string name="halo_dismiss">取消通知</string>
+    <string name="halo_hide">隐藏</string>
+    <string name="halo_clear_all">清除全部通知</string>
+    <string name="halo_silence">隐藏并静默，直到唤醒</string>
+    <string name="halo_tutorial1">我是HALO</string>
+    <string name="halo_tutorial2">通过双击并按住拖动来更换位置，单击并拖动来切换程序</string>
+    <string name="halo_tutorial3">在设置中更改我的行为</string>
+    <string name="halo_battery_plugged">充电</string>
+    <string name="halo_battery_unplugged">剩余</string>
+    <string name="halo_battery_full">充满</string>
+    <string name="halo_aeroplane1">飞行</string>
+    <string name="halo_aeroplane2">模式</string>
+    <string name="halo_wifi_on">WI-FI 开启</string>
+    <string name="halo_wifi_off">WI-FI 关闭</string>
+    <string name="halo_signal_bars_4">满</string>
+    <string name="halo_signal_bars_3">三格</string>
+    <string name="halo_signal_bars_2">两格</string>
+    <string name="halo_signal_bars_1">一格</string>
+    <string name="halo_signal_bars_none">无</string>
 
 </resources>
