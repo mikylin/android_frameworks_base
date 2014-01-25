@@ -16,8 +16,8 @@
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-    <!-- ScreenShort Trash -->
-    <string name="trash">"放棄"</string>
+    <!-- Lunar -->
+    <string name="status_leap">"閏"</string>
 
     <!-- ScreenRecord -->
     <string name="global_action_screen_record">屏幕錄像</string>

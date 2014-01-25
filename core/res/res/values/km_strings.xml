@@ -27,9 +27,6 @@
     <string name="status_format1" translatable="false">yyyy年MM月dd日</string>
     <string name="status_format2" translatable="false">1900年1月31日</string>
 
-    <!-- ScreenShort Trash -->
-    <string name="trash">Trash</string>
-
     <!-- ScreenRecord -->
     <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
     <string name="permlab_recordScreen">Record content being displayed</string>

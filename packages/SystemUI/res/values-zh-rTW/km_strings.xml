@@ -16,7 +16,8 @@
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-    <!-- ScreenRecord -->
-    <string name="global_action_screen_record">屏幕录像</string>
+    <!-- ScreenShort Trash -->
+    <string name="trash">"放棄"</string>
+    <string name="screenshot_trash_confirmation">"已放棄保存屏幕截圖."</string>
 
 </resources>

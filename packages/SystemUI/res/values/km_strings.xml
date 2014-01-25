@@ -19,6 +19,10 @@
     <!-- Title shown in recents popup for adding an application to the split view -->
     <string name="status_bar_recent_add_to_split_view">Add to Split View</string>
 
+    <!-- ScreenShort Trash -->
+    <string name="trash">Trash</string>
+    <string name="screenshot_trash_confirmation">Screenshot trashed.</string>
+
     <!-- App sidebar -->
     <string name="default_folder_text">Folder</string>
     <string name="title_activity_sidebar_configuration">Appbar content setup</string>
