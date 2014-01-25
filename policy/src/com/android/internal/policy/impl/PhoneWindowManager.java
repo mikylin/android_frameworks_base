@@ -368,6 +368,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     boolean mCameraKeyPressable = false;
     private boolean mClearedBecauseOfForceShow;
 
+    boolean mForceShowNavBar;
+
     private final class PointerLocationPointerEventListener implements PointerEventListener {
         @Override
         public void onPointerEvent(MotionEvent motionEvent) {
@@ -1447,9 +1449,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         // Allow a system property to override this. Used by the emulator.
         // See also hasNavigationBar().
         String navBarOverride = SystemProperties.get("qemu.hw.mainkeys");
-        if ("1".equals(navBarOverride)) {
+        if ("1".equals(navBarOverride) && !mForceShowNavBar) {
             mHasNavigationBar = false;
-        } else if ("0".equals(navBarOverride)) {
+        } else if ("0".equals(navBarOverride) || mForceShowNavBar) {
             mHasNavigationBar = true;
         }
 
@@ -1525,6 +1527,24 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mCameraMusicControls = ((Settings.System.getIntForUser(resolver,
                     Settings.System.CAMERA_MUSIC_CONTROLS, 1, UserHandle.USER_CURRENT) == 1)
                     && !mCameraWakeScreen);
+            mForceShowNavBar = (Settings.System.getIntForUser(resolver,
+                    Settings.System.FORCE_SHOW_NAVIGATION_BAR, 0, UserHandle.USER_CURRENT) == 1);
+            int mNavButtonsHeight = Settings.System.getIntForUser(resolver,
+                    Settings.System.NAVIGATION_BAR_HEIGHT, 48, UserHandle.USER_CURRENT);
+            // Height of the navigation bar when presented horizontally at bottom
+            mNavigationBarHeightForRotation[mPortraitRotation] =
+            mNavigationBarHeightForRotation[mUpsideDownRotation] =
+                    mNavButtonsHeight * DisplayMetrics.DENSITY_DEVICE/DisplayMetrics.DENSITY_DEFAULT;
+            mNavigationBarHeightForRotation[mLandscapeRotation] =
+            mNavigationBarHeightForRotation[mSeascapeRotation] =
+                    mNavButtonsHeight * DisplayMetrics.DENSITY_DEVICE/DisplayMetrics.DENSITY_DEFAULT;
+
+            // Width of the navigation bar when presented vertically along one side
+            mNavigationBarWidthForRotation[mPortraitRotation] =
+            mNavigationBarWidthForRotation[mUpsideDownRotation] =
+            mNavigationBarWidthForRotation[mLandscapeRotation] =
+            mNavigationBarWidthForRotation[mSeascapeRotation] =
+                    (mNavButtonsHeight - 6) * DisplayMetrics.DENSITY_DEVICE/DisplayMetrics.DENSITY_DEFAULT;
 
             mExpandedDesktopStyle = Settings.System.getIntForUser(resolver,
                     Settings.System.EXPANDED_DESKTOP_STYLE, 0, UserHandle.USER_CURRENT);
@@ -1532,23 +1552,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                         Settings.System.EXPANDED_DESKTOP_STATE, 0, UserHandle.USER_CURRENT) == 0) {
                 mExpandedDesktopStyle = 0;
             }
-
-            // Height of the navigation bar when presented horizontally at bottom        
-            int mNavButtonsHeight = Settings.System.getIntForUser(resolver,
-                    Settings.System.NAVIGATION_BAR_HEIGHT, 48, UserHandle.USER_CURRENT);
-                    mNavigationBarHeightForRotation[mPortraitRotation] =
-                    mNavigationBarHeightForRotation[mUpsideDownRotation] =
-                mNavButtonsHeight * DisplayMetrics.DENSITY_DEVICE/DisplayMetrics.DENSITY_DEFAULT;
-                    mNavigationBarHeightForRotation[mLandscapeRotation] =
-                    mNavigationBarHeightForRotation[mSeascapeRotation] =
-                mNavButtonsHeight * DisplayMetrics.DENSITY_DEVICE/DisplayMetrics.DENSITY_DEFAULT;
-
-            // Width of the navigation bar when presented vertically along one side
-                    mNavigationBarWidthForRotation[mPortraitRotation] =
-                    mNavigationBarWidthForRotation[mUpsideDownRotation] =
-                    mNavigationBarWidthForRotation[mLandscapeRotation] =
-                    mNavigationBarWidthForRotation[mSeascapeRotation] =
-                (mNavButtonsHeight - 6) * DisplayMetrics.DENSITY_DEVICE/DisplayMetrics.DENSITY_DEFAULT;
 
             updateKeyAssignments();
 
