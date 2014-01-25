@@ -112,9 +112,8 @@
             android:process=":screenshot"
             android:exported="false" />
 
-        <receiver
-            android:name=".screenshot.TrashScreenshot" />
-                android:exported="true" />
+        <receiver android:name=".screenshot.TrashScreenshot"
+            android:exported="true"/>
 
         <service android:name=".LoadAverageService"
                 android:exported="true" />
@@ -275,6 +274,13 @@
             android:exported="true"
             android:theme="@style/Theme.DummyActivity">
         </activity>
+
+        <service android:name=".powersaver.PowerSaverService"
+            android:exported="true" >
+            <intent-filter>
+                <android name="android.intent.action.POWER_SAVER_SERVICE_UPDATE"/>
+            </intent-filter>
+        </service>
 
         <!-- App sidebar -->
         <activity android:name=".statusbar.sidebar.SidebarConfigurationActivity"

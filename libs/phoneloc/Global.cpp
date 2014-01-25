@@ -46,3 +46,4 @@ IndexNode::IndexNode(int ns, int ne, StringNode * ad) {
     Address=ad;
     next=NULL;
 }
+
