@@ -627,7 +627,7 @@ public class RecentsPanelView extends FrameLayout implements OnClickListener, On
 
     private void setShortcurtEnable (ImageView imageView, String packageName) {
         if (imageView != null){
-            imageView.setVisibility(MoKeeUtils.isApkInstalled(packageName, mContext) ? ImageView.VISIBLE : ImageView.GONE );
+            imageView.setVisibility(KyLinUtils.isApkInstalled(packageName, mContext) ? ImageView.VISIBLE : ImageView.GONE );
             imageView.setOnClickListener(this);
         }
     }
