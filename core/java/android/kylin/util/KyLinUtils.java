@@ -17,6 +17,8 @@
 package android.kylin.util;
 
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -37,6 +39,22 @@ public class KyLinUtils {
             return true;
         }
         return false;
+    }
+
+    public static boolean isApkInstalled(String packagename, Context context) {
+        PackageInfo packageInfo;
+
+        try {
+            packageInfo = context.getPackageManager().getPackageInfo(packagename, 0);
+        } catch (NameNotFoundException e) {
+            packageInfo = null;
+        }
+
+        if (packageInfo == null) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     /**

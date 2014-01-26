@@ -229,13 +229,13 @@ public class Halo extends FrameLayout implements Ticker.TickerCallback {
             ContentResolver resolver = mContext.getContentResolver();
             mInteractionReversed =
                     Settings.System.getIntForUser(resolver, 
-                                        Settings.System.HALO_REVERSED, 1, UserHandle.USER_CURRENT) == 1;
+					Settings.System.HALO_REVERSED, 1, UserHandle.USER_CURRENT) == 1;
             mHideTicker =
                     Settings.System.getIntForUser(resolver, 
-                                        Settings.System.HALO_HIDE, 0, UserHandle.USER_CURRENT) == 1;
+					Settings.System.HALO_HIDE, 0, UserHandle.USER_CURRENT) == 1;
             mNinjaMode =
                     Settings.System.getIntForUser(resolver,
-                                        Settings.System.HALO_NINJA, 0, UserHandle.USER_CURRENT) == 1;
+					Settings.System.HALO_NINJA, 0, UserHandle.USER_CURRENT) == 1;
             if (!selfChange) {
                 mBar.restartHalo();
                 mEffect.nap(HaloEffect.SNAP_TIME + 1000);
@@ -1571,7 +1571,7 @@ public class Halo extends FrameLayout implements Ticker.TickerCallback {
 
         // Set Number
         HaloProperties.MessageType msgType;
-        if (entry.notification.getPackageName().equals("com.mokee.halo")) {
+        if (entry.notification.getPackageName().equals("com.kylinmod.halo")) {
             msgType = HaloProperties.MessageType.PINNED;
         } else if (!entry.notification.isClearable()) {
             msgType = HaloProperties.MessageType.PINNED;
@@ -1685,7 +1685,7 @@ public class Halo extends FrameLayout implements Ticker.TickerCallback {
             }
             persistent = !mNotificationData.get(i).notification.isClearable();
             // persistent notifications that were not blacklisted and pinned apps
-            boolean hide = (statusNotify.getPackageName().equals("com.mokee.halo") || (allowed && persistent));
+            boolean hide = (statusNotify.getPackageName().equals("com.kylinmod.halo") || (allowed && persistent));
             if (hide) ignore++;
         }
         return ignore;

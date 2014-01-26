@@ -2887,7 +2887,7 @@ public final class Settings {
 
         /**
          * Height of navigation bar buttons
-             * @hide
+         * @hide
          */
         public static final String NAVIGATION_BAR_HEIGHT = "navigation_bar_height";
 
