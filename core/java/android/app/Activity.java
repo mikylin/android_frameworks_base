@@ -2467,10 +2467,7 @@ public class Activity extends ContextThemeWrapper
         if (ev.getAction() == MotionEvent.ACTION_DOWN) {
             onUserInteraction();
         }
-
-        int mHaloEnabled = (Settings.System.getInt(getContentResolver(), Settings.System.HALO_ENABLED, 0));
-
-        if (mIsSplitView && mHaloEnabled != 1) {
+        if (mIsSplitView) {
             IWindowManager wm = (IWindowManager) WindowManagerGlobal.getWindowManagerService();
             try {
                 wm.notifyActivityTouched(mToken, false);
@@ -5251,9 +5248,7 @@ public class Activity extends ContextThemeWrapper
         mWindowManager = mWindow.getWindowManager();
         mCurrentConfig = config;
 
-        int mHaloEnabled = (Settings.System.getInt(getContentResolver(), Settings.System.HALO_ENABLED, 0));
-
-        if ((intent.getFlags() & Intent.FLAG_ACTIVITY_SPLIT_VIEW) != 0 && mHaloEnabled != 1) {
+        if ((intent.getFlags() & Intent.FLAG_ACTIVITY_SPLIT_VIEW) != 0) {
             final IWindowManager wm = (IWindowManager) WindowManagerGlobal.getWindowManagerService();
             updateSplitViewMetrics(true);
         }
