@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2013 SlimRoms Project
+<!-- Copyright (C) 2014 The KylinMod OpenSource Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -37,6 +37,6 @@
         <item name="android:src">@drawable/ic_menu_overflow</item>
     </style>
 
-    <style name="DialogWhenLarge" parent="@android:style/Theme.Holo.DialogWhenLarge" />
+    <style name="SettingsTheme" parent="@android:style/Theme.Holo.DialogWhenLarge" />
 
 </resources>

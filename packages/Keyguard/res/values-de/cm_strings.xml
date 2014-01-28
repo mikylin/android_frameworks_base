@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2014 The KylinMod OpenSource Project
+<!--
+     Copyright (C) 2014 The CyanogenMod Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -13,16 +14,6 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-
-<resources>
-    <color name="chip">#222</color>
-    <color name="item_root_pressed">#33333333</color>
-    <color name="item_root_focused">#66333333</color>
-
-    <!-- background colors from layout -->
-    <color name="drawer_background">#000</color>
-    <color name="save_background">#222</color>
-    <color name="title_background">#333</color>
-    <color name="grid_item_background">#000</color>
-
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="keyguard_discharging">Entlädt\u2026 (<xliff:g id="number">%d</xliff:g><xliff:g id="percent">%%</xliff:g>)</string>
 </resources>
