@@ -23,6 +23,13 @@
     <string name="trash">Trash</string>
     <string name="screenshot_trash_confirmation">Screenshot trashed.</string>
 
+    <!-- Recents Ram Bar -->
+    <string name="memory">RAM</string>
+    <!-- [CHAR LIMIT=10] Running services, summary of background processes -->
+    <string name="service_free_mem"><xliff:g id="memory">%1$s</xliff:g> free</string>
+    <!-- [CHAR LIMIT=10] Running services, summary of foreground processes -->
+    <string name="service_used_mem"><xliff:g id="memory">%1$s</xliff:g> used</string>
+
     <!-- App sidebar -->
     <string name="default_folder_text">Folder</string>
     <string name="title_activity_sidebar_configuration">Appbar content setup</string>

@@ -23,6 +23,13 @@
     <string name="trash">"放弃"</string>
     <string name="screenshot_trash_confirmation">"已放弃保存屏幕截图."</string>
 
+    <!-- Recents Ram Bar -->
+    <string name="memory">RAM</string>
+    <!-- [CHAR LIMIT=10] Running services, summary of background processes -->
+    <string name="service_free_mem"><xliff:g id="memory">%1$s</xliff:g> 空闲</string>
+    <!-- [CHAR LIMIT=10] Running services, summary of foreground processes -->
+    <string name="service_used_mem"><xliff:g id="memory">%1$s</xliff:g> 使用</string>
+
     <!-- App sidebar -->
     <string name="default_folder_text">文件夹</string>
     <string name="title_activity_sidebar_configuration">侧边栏内容设置</string>

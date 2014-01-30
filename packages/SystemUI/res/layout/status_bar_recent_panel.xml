@@ -24,163 +24,223 @@
     android:id="@+id/recents_root"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:foreground="@drawable/bg_protect"
+    android:layout_marginTop="-25dp"
+    android:layout_marginBottom="-75dp"
     systemui:recentItemLayout="@layout/status_bar_recent_item"
+    android:fitsSystemWindows="true"
     >
-    <FrameLayout
-        android:id="@+id/recents_bg_protect"
-        android:background="@drawable/status_bar_recents_background"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentBottom="true">
+        android:background="@drawable/status_bar_recents_background"
+        android:orientation="vertical">
 
-        <com.android.systemui.recent.RecentsVerticalScrollView
-            android:id="@+id/recents_container"
+        <view class="com.android.systemui.recent.LinearColorBar"
+            android:id="@+id/ram_usage_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="0dp"
-            android:divider="@null"
-            android:stackFromBottom="true"
-            android:fadingEdge="vertical"
-            android:scrollbars="none"
-            android:fadingEdgeLength="@dimen/status_bar_recents_scroll_fading_edge_length"
-            android:layout_gravity="bottom|start"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:clipChildren="false"
             android:clipToPadding="false"
-            android:clipChildren="false">
+            android:paddingTop="10dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:layout_marginLeft="@*android:dimen/preference_fragment_padding_side"
+            android:layout_marginRight="@*android:dimen/preference_fragment_padding_side">
 
-            <LinearLayout android:id="@+id/recents_linear_layout"
+            <TextView
+                android:id="@+id/usedMemText"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:focusable="true"
+                android:gravity="left|bottom"
+                android:textAppearance="?android:attr/textAppearanceSmallInverse"
+                android:textColor="#000"
+                android:singleLine="true" />
+
+            <TextView
+                android:id="@+id/ramText"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:focusable="true"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceSmallInverse"
+                android:textColor="#000"
+                android:singleLine="true" />
+
+            <TextView
+                android:id="@+id/freeMemText"
+                android:layout_gravity="center_vertical|right"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:focusable="true"
+                android:gravity="right|bottom"
+                android:textAppearance="?android:attr/textAppearanceSmallInverse"
+                android:textColor="#000"
+                android:singleLine="true" />
+
+        </view>
+
+        <FrameLayout
+            android:id="@+id/recents_bg_protect"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="75dp"
+            android:layout_alignParentBottom="true">
+
+            <com.android.systemui.recent.RecentsVerticalScrollView
+                android:id="@+id/recents_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:fitsSystemWindows="true"
+                android:layout_marginEnd="0dp"
+                android:divider="@null"
+                android:stackFromBottom="true"
+                android:fadingEdge="vertical"
+                android:scrollbars="none"
+                android:fadingEdgeLength="@dimen/status_bar_recents_scroll_fading_edge_length"
+                android:layout_gravity="bottom|start"
                 android:clipToPadding="false"
                 android:clipChildren="false">
-            </LinearLayout>
 
-        </com.android.systemui.recent.RecentsVerticalScrollView>
+                <LinearLayout android:id="@+id/recents_linear_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:clipToPadding="false"
+                    android:clipChildren="false">
+                </LinearLayout>
 
-        <ScrollView
-	    android:id="@+id/shortcut_bar"
-            android:layout_width="43dp"
-            android:layout_height="match_parent"
-            android:scrollbars="vertical"
-            android:layout_gravity="top|right"
-	    android:gravity="center_horizontal">
+            </com.android.systemui.recent.RecentsVerticalScrollView>
 
-		<LinearLayout
-		    android:orientation="vertical"
-		    android:layout_width="match_parent"
-		    android:layout_height="match_parent">
+            <ScrollView
+                android:id="@+id/shortcut_bar"
+                android:layout_width="43dp"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical"
+                android:layout_gravity="top|right"
+                android:gravity="center_horizontal">
 
-			<ImageView
-			    android:id="@+id/recents_clear"
-			    android:clickable="true"
-			    android:layout_width="43dp"
-			    android:layout_height="43dp"
-			    android:scaleType="center"
-			    android:src="@drawable/ic_recents_clear" />
+                <LinearLayout
+		            android:orientation="vertical"
+		            android:layout_width="match_parent"
+		            android:layout_height="match_parent">
 
-			<ImageView
-			    android:id="@+id/shortcut_alarmclock"
-			    android:clickable="true"
-			    android:layout_width="43dp"
-			    android:layout_height="43dp"
-			    android:scaleType="center"
-			    android:src="@drawable/ic_shortcut_alarmclock" />
+		            <ImageView
+		                android:id="@+id/recents_clear"
+		                android:clickable="true"
+		                android:layout_width="43dp"
+		                android:layout_height="43dp"
+		                android:scaleType="center"
+		                android:src="@drawable/ic_recents_clear" />
 
-			<ImageView
-			    android:id="@+id/shortcut_calculator"
-			    android:clickable="true"
-			    android:layout_width="43dp"
-			    android:layout_height="43dp"
-			    android:scaleType="center"
-			    android:src="@drawable/ic_shortcut_calculator" />
+		            <ImageView
+		                android:id="@+id/shortcut_alarmclock"
+		                android:clickable="true"
+		                android:layout_width="43dp"
+		                android:layout_height="43dp"
+		                android:scaleType="center"
+		                android:src="@drawable/ic_shortcut_alarmclock" />
 
-			<ImageView
-			    android:id="@+id/shortcut_calendar"
-			    android:clickable="true"
-			    android:layout_width="43dp"
-			    android:layout_height="43dp"
-			    android:scaleType="center"
-			    android:src="@drawable/ic_shortcut_calendar" />
+		            <ImageView
+		                android:id="@+id/shortcut_calculator"
+		                android:clickable="true"
+		                android:layout_width="43dp"
+		                android:layout_height="43dp"
+		                android:scaleType="center"
+		                android:src="@drawable/ic_shortcut_calculator" />
 
-			<ImageView
-			    android:id="@+id/shortcut_maps"
-			    android:clickable="true"
-			    android:layout_width="43dp"
-			    android:layout_height="43dp"
-			    android:scaleType="center"
-			    android:src="@drawable/ic_shortcut_maps" />
+		            <ImageView
+		                android:id="@+id/shortcut_calendar"
+		                android:clickable="true"
+		                android:layout_width="43dp"
+		                android:layout_height="43dp"
+		                android:scaleType="center"
+		                android:src="@drawable/ic_shortcut_calendar" />
 
-			<ImageView
-			    android:id="@+id/shortcut_music"
-			    android:clickable="true"
-			    android:layout_width="43dp"
-			    android:layout_height="43dp"
-			    android:scaleType="center"
-			    android:src="@drawable/ic_shortcut_music" />
+		            <ImageView
+		                android:id="@+id/shortcut_maps"
+		                android:clickable="true"
+		                android:layout_width="43dp"
+		                android:layout_height="43dp"
+		                android:scaleType="center"
+		                android:src="@drawable/ic_shortcut_maps" />
 
-			<ImageView
-			    android:id="@+id/shortcut_qq"
-			    android:clickable="true"
-			    android:layout_width="43dp"
-			    android:layout_height="43dp"
-			    android:scaleType="center"
-			    android:src="@drawable/ic_shortcut_qq" />
+		            <ImageView
+		                android:id="@+id/shortcut_music"
+		                android:clickable="true"
+		                android:layout_width="43dp"
+		                android:layout_height="43dp"
+		                android:scaleType="center"
+		                android:src="@drawable/ic_shortcut_music" />
 
-			<ImageView
-			    android:id="@+id/shortcut_sinaweibo"
-			    android:clickable="true"
-			    android:layout_width="43dp"
-			    android:layout_height="43dp"
-			    android:scaleType="center"
-			    android:src="@drawable/ic_shortcut_sinaweibo" />
+		            <ImageView
+		                android:id="@+id/shortcut_qq"
+		                android:clickable="true"
+		                android:layout_width="43dp"
+		                android:layout_height="43dp"
+		                android:scaleType="center"
+		                android:src="@drawable/ic_shortcut_qq" />
 
-			<ImageView
-			    android:id="@+id/shortcut_fuubo"
-			    android:clickable="true"
-			    android:layout_width="43dp"
-			    android:layout_height="43dp"
-			    android:scaleType="center"
-			    android:src="@drawable/ic_shortcut_fuubo" />
+		            <ImageView
+		                android:id="@+id/shortcut_sinaweibo"
+		                android:clickable="true"
+		                android:layout_width="43dp"
+		                android:layout_height="43dp"
+		                android:scaleType="center"
+		                android:src="@drawable/ic_shortcut_sinaweibo" />
 
-			<ImageView
-			    android:id="@+id/shortcut_wechat"
-			    android:clickable="true"
-			    android:layout_width="43dp"
-			    android:layout_height="43dp"
-			    android:scaleType="center"
-			    android:src="@drawable/ic_shortcut_wechat" />
+		            <ImageView
+		                android:id="@+id/shortcut_fuubo"
+		                android:clickable="true"
+		                android:layout_width="43dp"
+		                android:layout_height="43dp"
+		                android:scaleType="center"
+		                android:src="@drawable/ic_shortcut_fuubo" />
 
-			<ImageView
-			    android:id="@+id/shortcut_facebook"
-			    android:clickable="true"
-			    android:layout_width="43dp"
-			    android:layout_height="43dp"
-			    android:scaleType="center"
-			    android:src="@drawable/ic_shortcut_facebook" />
+		            <ImageView
+		                android:id="@+id/shortcut_wechat"
+		                android:clickable="true"
+		                android:layout_width="43dp"
+		                android:layout_height="43dp"
+		                android:scaleType="center"
+		                android:src="@drawable/ic_shortcut_wechat" />
 
-			<ImageView
-			    android:id="@+id/shortcut_twitter"
-			    android:clickable="true"
-			    android:layout_width="43dp"
-			    android:layout_height="43dp"
-			    android:scaleType="center"
-			    android:src="@drawable/ic_shortcut_twitter" />
+		            <ImageView
+		                android:id="@+id/shortcut_facebook"
+		                android:clickable="true"
+		                android:layout_width="43dp"
+		                android:layout_height="43dp"
+		                android:scaleType="center"
+		                android:src="@drawable/ic_shortcut_facebook" />
 
-			<ImageView
-			    android:id="@+id/shortcut_googleplus"
-			    android:clickable="true"
-			    android:layout_width="43dp"
-			    android:layout_height="43dp"
-			    android:scaleType="center"
-			    android:src="@drawable/ic_shortcut_googleplus" />
+		            <ImageView
+		                android:id="@+id/shortcut_twitter"
+		                android:clickable="true"
+		                android:layout_width="43dp"
+		                android:layout_height="43dp"
+		                android:scaleType="center"
+		                android:src="@drawable/ic_shortcut_twitter" />
 
-		</LinearLayout>
+		            <ImageView
+		                android:id="@+id/shortcut_googleplus"
+		                android:clickable="true"
+		                android:layout_width="43dp"
+		                android:layout_height="43dp"
+		                android:scaleType="center"
+		                android:src="@drawable/ic_shortcut_googleplus" />
 
-        </ScrollView>
+                </LinearLayout>
 
-    </FrameLayout>
+            </ScrollView>
+
+        </FrameLayout>
+
+    </LinearLayout>
 
     <include layout="@layout/status_bar_no_recent_apps"
         android:id="@+id/recents_no_apps"
