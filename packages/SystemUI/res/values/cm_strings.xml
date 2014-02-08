@@ -112,7 +112,4 @@
     <!-- Content description for the add quick settings tile button. [CHAR LIMIT=NONE] -->
     <string name="accessibility_desc_add_quick_settings">Add Quick settings.</string>
 
-    <!-- Content description for the add quick settings tile button. [CHAR LIMIT=NONE] -->
-    <string name="accessibility_desc_add_quick_settings">Add Quick settings.</string>
-
 </resources>
