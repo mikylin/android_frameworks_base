@@ -2087,6 +2087,12 @@ public final class Settings {
         public static final String PHONE_BLACKLIST_NOTIFY_ENABLED = "phone_blacklist_notify_enabled";
 
         /**
+         * Whether the blacklisting feature for phone calls from all numbers is enabled
+         * @hide
+         */
+        public static final String PHONE_BLACKLIST_ALL_NUMBER_MODE = "phone_blacklist_all_number";
+
+        /**
          * Whether the blacklisting feature for phone calls from private numbers is enabled
          * @hide
          */
@@ -3925,6 +3931,7 @@ public final class Settings {
             LOCKSCREEN_BATTERY_VISIBILITY,
             PHONE_BLACKLIST_ENABLED,
             PHONE_BLACKLIST_NOTIFY_ENABLED,
+            PHONE_BLACKLIST_ALL_NUMBER_MODE,
             PHONE_BLACKLIST_PRIVATE_NUMBER_MODE,
             PHONE_BLACKLIST_UNKNOWN_NUMBER_MODE,
             PHONE_BLACKLIST_REGEX_ENABLED,
