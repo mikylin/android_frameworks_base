@@ -149,6 +149,7 @@
 
     <!-- Default for Settings.Secure.DOWNLOAD_MAX_BYTES_OVER_MOBILE. <=0 if no limit -->
     <integer name="def_download_manager_max_bytes_over_mobile">-1</integer>
+
     <!-- Default for Settings.Secure.DOWNLOAD_RECOMMENDED_MAX_BYTES_OVER_MOBILE. <=0 if no limit -->
     <integer name="def_download_manager_recommended_max_bytes_over_mobile">-1</integer>
 
@@ -160,6 +161,7 @@
 
     <!-- Default for DTMF tones enabled -->
     <bool name="def_dtmf_tones_enabled">true</bool>
+
     <!-- Default for UI touch sounds enabled -->
     <bool name="def_sound_effects_enabled">true</bool>
 
@@ -186,11 +188,12 @@
 
     <!-- Default for Settings.System.STATUS_BAR_BATTERY -->
     <integer name="def_battery_style">0</integer>
+
     <!-- Default for Settings.System.STATUS_BAR_BATTERY_SHOW_PERCENT -->
     <integer name="def_battery_show_percent">1</integer>
 
     <!-- Default for Settings.System.STATUS_BAR_NOTIF_COUNT. -->
-   <integer name="def_notif_count">0</integer>
+    <integer name="def_notif_count">0</integer>
 
     <!-- Default for Settings.System.QS_QUICK_PULLDOWN.
     0. Off
