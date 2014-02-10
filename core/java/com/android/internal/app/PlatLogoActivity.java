@@ -46,14 +46,14 @@ public class PlatLogoActivity extends Activity {
     FrameLayout mContent;
     int mCount;
     final Handler mHandler = new Handler();
-    private boolean mIsCM;
+    private boolean mIsKM;
     static final int BGCOLOR = 0xffed1d24;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mIsCM = getIntent().hasExtra("is_cm");
+        mIsKM = getIntent().hasExtra("is_km");
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
@@ -73,8 +73,8 @@ public class PlatLogoActivity extends Activity {
         int p = (int) (20 * metrics.density);
 
         final ImageView logo = new ImageView(this);
-        logo.setImageResource(mIsCM
-                ? com.android.internal.R.drawable.cm_platlogo
+        logo.setImageResource(mIsKM
+                ? com.android.internal.R.drawable.km_platlogo
                 : com.android.internal.R.drawable.platlogo);
         logo.setPadding(p, 0, p, 0);
         logo.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
@@ -87,14 +87,14 @@ public class PlatLogoActivity extends Activity {
         final TextView letter = new TextView(this);
 
         letter.setTypeface(bold);
-        letter.setTextSize(mIsCM ? 150 : 300);
+        letter.setTextSize(mIsKM ? 150 : 300);
         letter.setTextColor(0xFFFFFFFF);
         letter.setGravity(Gravity.CENTER);
-        letter.setText(mIsCM ? "CM" : "K");
+        letter.setText(mIsKM ? "KM" : "K");
 
-        String cmVersion = SystemProperties.get("ro.cm.version");
-        if (cmVersion != null) {
-            cmVersion = cmVersion.replaceAll("([0-9\\.]+?)-.*", "$1");
+        String kmVersion = SystemProperties.get("ro.km.version");
+        if (kmVersion != null) {
+            kmVersion = kmVersion.replaceAll("([0-9\\.]+?)-.*", "$1");
         }
 
         p = (int) (4 * metrics.density);
@@ -105,7 +105,7 @@ public class PlatLogoActivity extends Activity {
         tv.setPadding(p, p, p, p);
         tv.setTextColor(0xFFFFFFFF);
         tv.setGravity(Gravity.CENTER);
-        tv.setText(mIsCM ? "CyanogenMod " + cmVersion : "ANDROID " + Build.VERSION.RELEASE);
+        tv.setText(mIsKM ? "KylinMod " + kmVersion : "ANDROID " + Build.VERSION.RELEASE);
         tv.setVisibility(View.INVISIBLE);
 
         mContent.addView(bg);
@@ -179,7 +179,7 @@ public class PlatLogoActivity extends Activity {
                         .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                             | Intent.FLAG_ACTIVITY_CLEAR_TASK
                             | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS)
-                        .putExtra("is_cm", mIsCM)
+                        .putExtra("is_km", mIsKM)
                         .addCategory("com.android.internal.category.PLATLOGO"));
                 } catch (ActivityNotFoundException ex) {
                     android.util.Log.e("PlatLogoActivity", "Couldn't catch a break.");

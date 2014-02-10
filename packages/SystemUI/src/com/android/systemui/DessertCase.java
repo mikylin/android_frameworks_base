@@ -25,7 +25,7 @@ import android.os.Handler;
 import android.util.Slog;
 import android.view.animation.DecelerateInterpolator;
 
-import com.android.systemui.cm.CMCaseView;
+import com.android.systemui.kylin.KMCaseView;
 
 public class DessertCase extends Activity {
     DessertCaseView mView;
@@ -33,13 +33,13 @@ public class DessertCase extends Activity {
     @Override
     public void onStart() {
         super.onStart();
-        final boolean isCM = getIntent().getBooleanExtra("is_cm", false);
+        final boolean isKM = getIntent().getBooleanExtra("is_km", false);
 
         PackageManager pm = getPackageManager();
         final ComponentName cn = new ComponentName(this, DessertCaseDream.class);
         if (pm.getComponentEnabledSetting(cn) != PackageManager.COMPONENT_ENABLED_STATE_ENABLED) {
-            if (isCM) {
-                Slog.v("DessertCase", "CyanogenMod enabled!");
+            if (isKM) {
+                Slog.v("DessertCase", "KylinMod enabled!");
             } else {
                 Slog.v("DessertCase", "ACHIEVEMENT UNLOCKED");
             }
@@ -48,8 +48,8 @@ public class DessertCase extends Activity {
                     PackageManager.DONT_KILL_APP);
         }
 
-        if (isCM) {
-            mView = new CMCaseView(this);
+        if (isKM) {
+            mView = new KMCaseView(this);
         } else {
             mView = new DessertCaseView(this);
         }

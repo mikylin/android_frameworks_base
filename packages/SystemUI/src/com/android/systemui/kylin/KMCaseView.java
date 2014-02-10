@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013-2014 The CyanogenMod Project
+ * Copyright (C) 2014 The KylinMod OpenSource Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.systemui.cm;
+package com.android.systemui.kylin;
 
 import com.android.systemui.DessertCaseView;
 import com.android.systemui.R;
@@ -22,31 +22,31 @@ import com.android.systemui.R;
 import android.content.Context;
 import android.util.AttributeSet;
 
-public class CMCaseView extends DessertCaseView {
+public class KMCaseView extends DessertCaseView {
     private static final int[] PASTRIES = {
-            R.drawable.cm_cid_normal,
-            R.drawable.cm_cid_standing_normal,
+            R.drawable.km_cid_normal,
+            R.drawable.km_cid_standing_normal,
             R.drawable.dessert_kitkat,
             R.drawable.dessert_android
     };
 
     private static final int[] RARE_PASTRIES = {
-            R.drawable.cm_cid_angry,
-            R.drawable.cm_cid_standing_angry,
+            R.drawable.km_cid_angry,
+            R.drawable.km_cid_standing_angry,
             R.drawable.dessert_gingerbread,
             R.drawable.dessert_ics,
             R.drawable.dessert_jellybean
     };
 
     private static final int[] XRARE_PASTRIES = {
-            R.drawable.cm_cid_wat,
-            R.drawable.cm_cid_circle,
-            R.drawable.cm_cid_confused,
-            R.drawable.cm_cid_standing_skate,
+            R.drawable.km_cid_wat,
+            R.drawable.km_cid_circle,
+            R.drawable.km_cid_confused,
+            R.drawable.km_cid_standing_skate,
     };
 
     private static final int[] XXRARE_PASTRIES = {
-            R.drawable.cm_andy,
+            R.drawable.km_andy,
             R.drawable.dessert_cupcake,
             R.drawable.dessert_donut,
             R.drawable.dessert_eclair,
@@ -56,15 +56,15 @@ public class CMCaseView extends DessertCaseView {
     private static final int NUM_PASTRIES = PASTRIES.length + RARE_PASTRIES.length
             + XRARE_PASTRIES.length + XXRARE_PASTRIES.length;
 
-    public CMCaseView(Context context) {
+    public KMCaseView(Context context) {
         super(context, null);
     }
 
-    public CMCaseView(Context context, AttributeSet attrs) {
+    public KMCaseView(Context context, AttributeSet attrs) {
         super(context, attrs, 0);
     }
 
-    public CMCaseView(Context context, AttributeSet attrs, int defStyle) {
+    public KMCaseView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 

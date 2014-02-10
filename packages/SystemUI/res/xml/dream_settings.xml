@@ -19,8 +19,8 @@
     android:title="@string/dessert_case">
 
     <CheckBoxPreference
-        android:key="dessert_case_cm"
-        android:title="@string/dessert_case_settings_cm_title"
-        android:summary="@string/dessert_case_settings_cm_summary"
+        android:key="dessert_case_km"
+        android:title="@string/dessert_case_settings_km_title"
+        android:summary="@string/dessert_case_settings_km_summary"
         android:defaultValue="false" />
 </PreferenceScreen>
