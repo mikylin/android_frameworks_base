@@ -555,6 +555,7 @@ AaptGroupEntry::initFromDirName(const char* dir, String8* resType)
         //printf("not orientation: %s\n", part.string());
     }
 
+
     // ui theme mode
     if (getUiThemeModeName(part.string())) {
         uiThemeMode = part;
@@ -1119,7 +1120,8 @@ bool AaptGroupEntry::getOrientationName(const char* name,
 
     return false;
 }
- 
+
+
 bool AaptGroupEntry::getUiThemeModeName(const char* name,
                                         ResTable_config* out)
 {

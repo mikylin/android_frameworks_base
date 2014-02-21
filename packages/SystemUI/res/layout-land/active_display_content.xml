@@ -116,6 +116,9 @@
                 android:layout_below="@id/anchor"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/glowpad_overflow_notifications_margin_top" />
+
         </RelativeLayout>
+
     </LinearLayout>
+
 </FrameLayout>

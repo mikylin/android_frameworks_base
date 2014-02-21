@@ -101,6 +101,7 @@ public class RecentsPanelView extends FrameLayout implements OnClickListener, On
     private PopupMenu mPopup;
     private View mRecentsScrim;
     private View mRecentsNoApps;
+    //private View mRecentsRamBar;
     private RecentsScrollView mRecentsContainer;
 
     private boolean mShowing;
@@ -599,6 +600,7 @@ public class RecentsPanelView extends FrameLayout implements OnClickListener, On
 
         mRecentsScrim = findViewById(R.id.recents_bg_protect);
         mRecentsNoApps = findViewById(R.id.recents_no_apps);
+        //mRecentsRamBar = findViewById(R.id.recents_ram_bar);
 
         mClearRecents = (ImageView) findViewById(R.id.recents_clear);
         mShortcutBar = (ScrollView) findViewById(R.id.shortcut_bar);
@@ -640,6 +642,7 @@ public class RecentsPanelView extends FrameLayout implements OnClickListener, On
                 ((BitmapDrawable) mRecentsScrim.getBackground()).setTileModeY(TileMode.REPEAT);
             }
         }
+	updateRamBar();
     }
 
     private void setShortcurtEnable (ImageView imageView, String packageName) {
@@ -762,7 +765,6 @@ public class RecentsPanelView extends FrameLayout implements OnClickListener, On
 
     public void setMinSwipeAlpha(float minAlpha) {
         mRecentsContainer.setMinSwipeAlpha(minAlpha);
-        updateRamBar();
     }
 
     private void createCustomAnimations(LayoutTransition transitioner) {
@@ -885,6 +887,7 @@ public class RecentsPanelView extends FrameLayout implements OnClickListener, On
             mRecentTasksLoader.cancelLoadingThumbnailsAndIcons(this);
             onTaskLoadingCancelled();
         }
+	updateRamBar();
     }
 
     public void onTaskLoadingCancelled() {
@@ -893,7 +896,7 @@ public class RecentsPanelView extends FrameLayout implements OnClickListener, On
             mRecentTaskDescriptions = null;
             mListAdapter.notifyDataSetInvalidated();
         }
-        updateRamBar();
+	updateRamBar();
     }
 
     public void refreshViews() {
@@ -905,7 +908,6 @@ public class RecentsPanelView extends FrameLayout implements OnClickListener, On
 
     public void refreshRecentTasksList() {
         refreshRecentTasksList(null, false);
-        updateRamBar();
     }
 
     private void refreshRecentTasksList(
@@ -1059,6 +1061,7 @@ public class RecentsPanelView extends FrameLayout implements OnClickListener, On
             sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_SELECTED);
             setContentDescription(null);
         }
+	updateRamBar();
     }
 
     private void startApplicationDetailsActivity(String packageName) {
@@ -1311,23 +1314,6 @@ public class RecentsPanelView extends FrameLayout implements OnClickListener, On
         mRecentsContainer.drawFadedEdges(canvas, left, right, top, bottom);
     }
 
-    @Override
-    protected boolean fitSystemWindows(Rect insets) {
-        if (mClearRecents != null) {
-            MarginLayoutParams lp = (MarginLayoutParams) mClearRecents.getLayoutParams();
-            lp.topMargin = insets.top;
-            lp.rightMargin = insets.right;
-            mClearRecents.setLayoutParams(lp);
-        }
-
-        return super.fitSystemWindows(insets);
-    }
-
-    class FakeClearUserDataObserver extends IPackageDataObserver.Stub {
-        public void onRemoveCompleted(final String packageName, final boolean succeeded) {
-        }
-    }
-
     private void updateRamBar() {
         mRamUsageBar = (LinearColorBar) findViewById(R.id.ram_usage_bar);
 
@@ -1479,4 +1465,22 @@ public class RecentsPanelView extends FrameLayout implements OnClickListener, On
             reader.close();
         }
     }
+
+    @Override
+    protected boolean fitSystemWindows(Rect insets) {
+        if (mClearRecents != null) {
+            MarginLayoutParams lp = (MarginLayoutParams) mClearRecents.getLayoutParams();
+            lp.topMargin = insets.top;
+            lp.rightMargin = insets.right;
+            mClearRecents.setLayoutParams(lp);
+        }
+
+        return super.fitSystemWindows(insets);
+    }
+
+    class FakeClearUserDataObserver extends IPackageDataObserver.Stub {
+        public void onRemoveCompleted(final String packageName, final boolean succeeded) {
+        }
+    }
 }
+
