@@ -1483,4 +1483,3 @@ public class RecentsPanelView extends FrameLayout implements OnClickListener, On
         }
     }
 }
-
