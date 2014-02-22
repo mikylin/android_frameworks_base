@@ -3282,6 +3282,12 @@ public final class Settings {
         public static final String DIALER_DIRECT_CALL = "dialer_direct_call";
 
         /**
+         * non intrusive incall. The value is
+         * boolean (1 or 0).
+         */
+        public static final String NON_INTRUSIVE_INCALL = "non_intrusive_incall";
+
+        /**
          * show carrier in statusbar. The value is
          * boolean (1 or 0).
          */
@@ -3834,13 +3840,6 @@ public final class Settings {
          * @hide
          */
         public static final String DOUBLE_TAP_SLEEP_GESTURE = "double_tap_sleep_gesture";
-
-        /**
-         * Should the non-intrsive incall ui be used
-         *
-         * @hide
-         */
-        public static final String NON_INTRUSIVE_INCALL = "non_intrusive_incall";
 
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
