@@ -35,6 +35,9 @@
     <dimen name="ad_date_font_size">18dp</dimen>
     <!-- AM/PM size in active display -->
     <dimen name="ad_ampm_font_size">32dp</dimen>
+    <dimen name="notification_large_icon_width">64dp</dimen>
+    <dimen name="notification_large_icon_height">64dp</dimen>
+    <dimen name="notification_subtext_size">12dp</dimen>
 
     <!-- App sidebar -->
     <dimen name="app_sidebar_item_size">60dp</dimen>
