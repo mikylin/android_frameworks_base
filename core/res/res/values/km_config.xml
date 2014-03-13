@@ -21,5 +21,4 @@
     <integer name="config_networkSpeedIndicatorRefreshTimeout">3000</integer>
     <integer name="config_networkSpeedIndicatorSingleLineFontSize">15</integer>
     <integer name="config_networkSpeedIndicatorDualLineFontSize">10</integer>
-
 </resources>

@@ -3332,12 +3332,12 @@ public final class Settings {
         /**
          * @hide
          */
-        public static final String POWER_SAVER_CPU = "power_saver_cpu";
+        public static final String POWER_SAVER_CPU_GOVERNOR = "power_saver_cpu_governor";
 
         /**
          * @hide
          */
-        public static final String POWER_SAVER_CPU_DEFAULT = "power_saver_cpu_default";
+        public static final String POWER_SAVER_CPU_GOVERNOR_DEFAULT = "power_saver_cpu_governor_default";
 
         /**
          * @hide
@@ -3447,6 +3447,12 @@ public final class Settings {
         public static final String ACTIVE_DISPLAY_THRESHOLD = "active_display_threshold";
 
         /**
+         * use Active display content view instead default one.
+         * @hide
+         */
+        public static final String ACTIVE_DISPLAY_CONTENT = "active_display_content";
+
+        /**
          * Timeout of the display when there is no user interaction
          * @hide
          */
@@ -3458,6 +3464,38 @@ public final class Settings {
          * @hide
          */
         public static final String ACTIVE_DISPLAY_EXCLUDED_APPS = "active_display_excluded_apps";
+
+        /**
+         * A list of packages to exclude from being message displayed in active display.
+         * This should be a string of packages separated by |
+         * @hide
+         */
+        public static final String ACTIVE_DISPLAY_PRIVACY_APPS = "active_display_privacy_apps";
+
+        /**
+         * allow bypass active display when lockscreen isSecure
+         * and there is no notifications
+         * @hide
+         */
+        public static final String ACTIVE_DISPLAY_BYPASS = "active_display_bypass";
+
+        /**
+         * Whether to showing wallpaper behind active display.
+         * @hide
+         */
+        public static final String ACTIVE_DISPLAY_WALLPAPER = "active_display_wallpaper";
+
+        /**
+         * Whether to not showing active display when there is annoying notifications.
+         * @hide
+         */
+        public static final String ACTIVE_DISPLAY_ANNOYING = "active_display_annoying";
+
+        /**
+         * double tap every where to sleep on active display.
+         * @hide
+         */
+        public static final String ACTIVE_DISPLAY_DOUBLE_TAP = "active_display_double_tap";
 
         /**
          * ListView Animations
