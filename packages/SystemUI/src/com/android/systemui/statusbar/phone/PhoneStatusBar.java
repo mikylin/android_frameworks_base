@@ -3754,6 +3754,18 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                     inflateRibbon();
                     mRibbonView.setVisibility(View.VISIBLE);
             } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.NOTIFICATION_BACKGROUND))
+                || uri.equals(Settings.System.getUriFor(
+                    Settings.System.NOTIFICATION_BACKGROUND_LANDSCAPE))
+                || uri.equals(Settings.System.getUriFor(
+                    Settings.System.NOTIFICATION_BACKGROUND_ALPHA))) {
+                if (mNotificationPanel != null) {
+                    mNotificationPanel.setBackgroundDrawables();
+                }
+                if (mSettingsPanel != null) {
+                    mSettingsPanel.setBackgroundDrawables();
+                }
+            }else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.QUICK_TILES_PER_ROW))) {
                 recreateStatusBar();
             } else if (uri.equals(Settings.System.getUriFor(
@@ -3838,6 +3850,19 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             cr.registerContentObserver(
                     Settings.System.getUriFor(Settings.System.QUICK_TILES_PER_ROW_DUPLICATE_LANDSCAPE),
                     false, this, UserHandle.USER_ALL);
+
+            cr.registerContentObserver(
+                    Settings.System.getUriFor(Settings.System.NOTIFICATION_BACKGROUND),
+                    false, this, UserHandle.USER_ALL);
+
+            cr.registerContentObserver(
+                    Settings.System.getUriFor(Settings.System.NOTIFICATION_BACKGROUND_LANDSCAPE),
+                    false, this, UserHandle.USER_ALL);
+
+            cr.registerContentObserver(
+                    Settings.System.getUriFor(Settings.System.NOTIFICATION_BACKGROUND_ALPHA),
+                    false, this, UserHandle.USER_ALL);
+
         }
     }
 }
