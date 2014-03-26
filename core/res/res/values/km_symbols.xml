@@ -118,4 +118,8 @@
   <java-symbol type="anim" name="slide_in_left_no_fade" />
   <java-symbol type="anim" name="slide_out_right_no_fade" />
 
+  <!-- Operator translations -->
+  <java-symbol type="array" name="operator_translate_ids" />
+  <java-symbol type="array" name="operator_translate_names" />
+
 </resources>
