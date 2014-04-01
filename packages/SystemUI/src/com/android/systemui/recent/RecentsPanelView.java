@@ -125,6 +125,7 @@ public class RecentsPanelView extends FrameLayout implements OnItemClickListener
     private boolean mHighEndGfx;
     private ImageView mClearRecents;
     private ImageView mFirstShortcut;
+    private ImageView mLastShortcut;
 
     private ScrollView mShortcutBar;
     private LinearLayout mShortcutList;
@@ -636,6 +637,7 @@ public class RecentsPanelView extends FrameLayout implements OnItemClickListener
             switch (layoutGravity) {
                 case 0:
                     layoutParams.gravity = Gravity.TOP | Gravity.RIGHT;
+                    mShortcutList.setGravity(Gravity.TOP);
                     setShortcutListInTop(mShortcutListItems, mContentResolver);
                     break;
                 case 1:
@@ -645,8 +647,8 @@ public class RecentsPanelView extends FrameLayout implements OnItemClickListener
                     break;
                 case 2:
                     layoutParams.gravity = Gravity.TOP | Gravity.LEFT;
+                    mShortcutList.setGravity(Gravity.TOP);
                     setShortcutListInTop(mShortcutListItems, mContentResolver);
-                    mFirstShortcut = (ImageView)mShortcutList.getChildAt(0);
                     break;
                 case 3:
                     layoutParams.gravity = Gravity.BOTTOM | Gravity.LEFT;
@@ -659,6 +661,7 @@ public class RecentsPanelView extends FrameLayout implements OnItemClickListener
             setShortcutListInTop(mShortcutListItems, mContentResolver);
         }
         mFirstShortcut = (ImageView)mShortcutList.getChildAt(0);
+        mLastShortcut = (ImageView)mShortcutList.getChildAt(mShortcutList.getChildCount() - 1);
         requestFitSystemWindows();
     };
 
@@ -1504,6 +1507,13 @@ public class RecentsPanelView extends FrameLayout implements OnItemClickListener
             lp.topMargin = insets.top;
             lp.rightMargin = insets.right;
             mFirstShortcut.setLayoutParams(lp);
+        }
+
+        if (mLastShortcut != null) {
+            MarginLayoutParams lp = (MarginLayoutParams) mLastShortcut.getLayoutParams();
+            lp.bottomMargin = insets.bottom;
+            lp.rightMargin = insets.right;
+            mLastShortcut.setLayoutParams(lp);
         }
 
         return super.fitSystemWindows(insets);
