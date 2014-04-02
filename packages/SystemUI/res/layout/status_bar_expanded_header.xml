@@ -24,7 +24,7 @@
     >
     <ImageView
         android:id="@+id/header_background_image"
-        android:drawable="@drawable/notification_header_bg"
+        android:background="@drawable/notification_header_bg"
         android:scaleType="centerCrop"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -55,7 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="8dp"
-                android:paddingEnd="4dp"
+                android:paddingEnd="8dp"
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.StatusBar.Expanded.Clock"
                 android:background="@drawable/ic_notify_button_bg"
@@ -67,7 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@drawable/ic_notify_button_bg"
-                android:paddingStart="4dp"
+                android:paddingStart="8dp"
                 android:paddingEnd="8dp"
                 android:gravity="center_vertical"
                 android:layout_toEndOf="@id/clock"           
@@ -89,9 +89,11 @@
 
         </RelativeLayout>
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+        <ImageView
+            android:id="@+id/spacer"
+            android:background="@drawable/ic_notify_button_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             />
 
