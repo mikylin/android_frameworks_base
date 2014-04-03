@@ -87,14 +87,15 @@ import com.android.systemui.statusbar.phone.PhoneStatusBar;
 import com.android.internal.util.MemInfoReader;
 
 import java.util.ArrayList;
-import java.util.List;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-public class RecentsPanelView extends FrameLayout implements OnClickListener, OnItemClickListener, RecentsCallback,
+public class RecentsPanelView extends FrameLayout implements OnItemClickListener, RecentsCallback,
         StatusBarPanel, Animator.AnimatorListener {
     static final String TAG = "RecentsPanelView";
     static final boolean DEBUG = PhoneStatusBar.DEBUG || false;
@@ -123,18 +124,7 @@ public class RecentsPanelView extends FrameLayout implements OnClickListener, On
     private ImageView mClearRecents;
 
     private ScrollView mShortcutBar;
-    private ImageView mAlarmClock;
-    private ImageView mCalculator;
-    private ImageView mCalendar;
-    private ImageView mMaps;
-    private ImageView mMusic;
-    private ImageView mFacebook;
-    private ImageView mGooglePlus;
-    private ImageView mQQ;
-    private ImageView mSinaWeibo;
-    private ImageView mTwitter;
-    private ImageView mWeChat;
-    private ImageView mFuubo;
+    private LinearLayout mShortcutList;
 
     private int mDragPositionX;
     private int mDragPositionY;
@@ -439,7 +429,9 @@ public class RecentsPanelView extends FrameLayout implements OnClickListener, On
             mShortcutBar.setVisibility(noApps ? View.GONE : View.VISIBLE);
             mRecentsNoApps.setAlpha(1f);
             mRecentsNoApps.setVisibility(noApps ? View.VISIBLE : View.INVISIBLE);
-            mClearRecents.setVisibility(noApps ? View.GONE : View.VISIBLE);
+            if (mClearRecents != null) {
+                mClearRecents.setVisibility(noApps ? View.GONE : View.VISIBLE);
+            }
             onAnimationEnd(null);
             setFocusable(true);
             setFocusableInTouchMode(true);
@@ -602,36 +594,42 @@ public class RecentsPanelView extends FrameLayout implements OnClickListener, On
         mRecentsNoApps = findViewById(R.id.recents_no_apps);
         //mRecentsRamBar = findViewById(R.id.recents_ram_bar);
 
-        mClearRecents = (ImageView) findViewById(R.id.recents_clear);
         mShortcutBar = (ScrollView) findViewById(R.id.shortcut_bar);
-        mAlarmClock = (ImageView) findViewById(R.id.shortcut_alarmclock);
-        mCalculator = (ImageView) findViewById(R.id.shortcut_calculator);
-        mCalendar = (ImageView) findViewById(R.id.shortcut_calendar);
-        mMaps = (ImageView) findViewById(R.id.shortcut_maps);
-        mMusic = (ImageView) findViewById(R.id.shortcut_music);
-        mFacebook = (ImageView) findViewById(R.id.shortcut_facebook);
-        mGooglePlus = (ImageView) findViewById(R.id.shortcut_googleplus);
-        mQQ = (ImageView) findViewById(R.id.shortcut_qq);
-        mSinaWeibo = (ImageView) findViewById(R.id.shortcut_sinaweibo);
-        mTwitter = (ImageView) findViewById(R.id.shortcut_twitter);
-        mWeChat = (ImageView) findViewById(R.id.shortcut_wechat);
-        mFuubo = (ImageView) findViewById(R.id.shortcut_fuubo);
+        mShortcutList = (LinearLayout) findViewById(R.id.shortcut_list);
 
-        if (mClearRecents != null){
-            mClearRecents.setOnClickListener(this);
+        // Shortcut list
+        String[] mShortcutListItems = mContext.getResources().getStringArray(R.array.shortcut_list_items);
+        TypedArray mTypedArrayDrawables = mContext.getResources().obtainTypedArray(R.array.shortcut_list_drawables);
+        // mShortcutList.removeAllViews();
+        for (int i = 0; i < mShortcutListItems.length; i++) {
+            ImageView mShortCutView = new ImageView(mContext);
+            mShortCutView.setClickable(true);
+            mShortCutView.setScaleType(ScaleType.CENTER);
+            mShortCutView.setImageResource(mTypedArrayDrawables.getResourceId(i, 0));
+            mShortCutView.setLayoutParams(new ViewGroup.LayoutParams(mShortcutBar.getLayoutParams().width, mShortcutBar.getLayoutParams().width));
+            final String packageName = mShortcutListItems[i].split("\\|")[0];
+            final String className = mShortcutListItems[i].split("\\|")[1];
+            if (!packageName.equals("clear") && !KyLinUtils.isApkInstalledAndEnabled(packageName, mContext)) {
+                mShortCutView.setVisibility(ImageView.GONE);
+            } else {
+                if (packageName.equals("clear")) {
+                    mClearRecents = mShortCutView;
+                    mShortCutView.setOnClickListener(new OnClickListener(){
+                        @Override
+                        public void onClick(View view) {
+                            clearAllNonLocked();
+                            mShortcutBar.setVisibility(View.GONE);
+                        }});
+                } else {
+                    mShortCutView.setOnClickListener(new OnClickListener(){
+                        @Override
+                        public void onClick(View view) {
+                            startApplicationActivity(packageName, className);
+                        }});
+                }
+                mShortcutList.addView(mShortCutView);
+            }
         }
-        setShortcurtEnable(mAlarmClock, "com.android.deskclock");
-        setShortcurtEnable(mCalculator, "com.android.calculator2");
-        setShortcurtEnable(mCalendar, "com.android.calendar");
-        setShortcurtEnable(mMaps, "com.google.android.apps.maps");
-        setShortcurtEnable(mMusic, "com.andrew.apollo");
-        setShortcurtEnable(mFacebook, "com.facebook.katana");
-        setShortcurtEnable(mGooglePlus, "com.google.android.apps.plus");
-        setShortcurtEnable(mQQ, "com.tencent.mobileqq");
-        setShortcurtEnable(mSinaWeibo, "com.sina.weibo");
-        setShortcurtEnable(mTwitter, "com.twitter.android");
-        setShortcurtEnable(mWeChat, "com.tencent.mm");
-        setShortcurtEnable(mFuubo, "me.imid.fuubo");
 
         if (mRecentsScrim != null) {
             mHighEndGfx = ActivityManager.isHighEndGfx();
@@ -643,13 +641,6 @@ public class RecentsPanelView extends FrameLayout implements OnClickListener, On
             }
         }
 	updateRamBar();
-    }
-
-    private void setShortcurtEnable (ImageView imageView, String packageName) {
-        if (imageView != null){
-            imageView.setVisibility(KyLinUtils.isApkInstalled(packageName, mContext) ? ImageView.VISIBLE : ImageView.GONE );
-            imageView.setOnClickListener(this);
-        }
     }
 
     private void startApplicationActivity(String packageName, String loginMain) {
@@ -674,53 +665,6 @@ public class RecentsPanelView extends FrameLayout implements OnClickListener, On
         mIntent.setClassName(packageName, loginMain);
         mIntent.addFlags(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY | Intent.FLAG_ACTIVITY_TASK_ON_HOME | Intent.FLAG_ACTIVITY_NEW_TASK );
         mContext.startActivityAsUser(mIntent, new UserHandle(UserHandle.USER_CURRENT));
-        }
-    }
-
-    @Override
-    public void onClick(View v) {
-        int value = v.getId();
-        switch (v.getId()) {
-        case R.id.recents_clear:
-            // mRecentsContainer.removeAllViewsInLayout();
-            clearAllNonLocked();
-            break;
-        case R.id.shortcut_alarmclock:
-            startApplicationActivity("com.android.deskclock","com.android.deskclock.DeskClock");
-            break;
-        case R.id.shortcut_calculator:
-            startApplicationActivity("com.android.calculator2","com.android.calculator2.Calculator");
-            break;
-        case R.id.shortcut_calendar:
-            startApplicationActivity("com.android.calendar","com.android.calendar.LaunchActivity");
-            break;
-        case R.id.shortcut_maps:
-            startApplicationActivity("com.google.android.apps.maps","com.google.android.maps.MapsActivity");
-            break;
-        case R.id.shortcut_music:
-            startApplicationActivity("com.andrew.apollo","com.andrew.apollo.ui.activities.HomeActivity");
-            break;
-        case R.id.shortcut_facebook:
-            startApplicationActivity("com.facebook.katana","com.facebook.katana.LoginActivity");
-            break;
-        case R.id.shortcut_googleplus:
-            startApplicationActivity("com.google.android.apps.plus","com.google.android.apps.plus.phone.HomeActivity");
-            break;
-        case R.id.shortcut_qq:
-            startApplicationActivity("com.tencent.mobileqq","com.tencent.mobileqq.activity.SplashActivity");
-            break;
-        case R.id.shortcut_sinaweibo:
-            startApplicationActivity("com.sina.weibo","com.sina.weibo.SplashActivity");
-            break;
-        case R.id.shortcut_twitter:
-            startApplicationActivity("com.twitter.android","com.twitter.android.StartActivity");
-            break;
-        case R.id.shortcut_wechat:
-            startApplicationActivity("com.tencent.mm","com.tencent.mm.ui.LauncherUI");
-            break;
-        case R.id.shortcut_fuubo:
-            startApplicationActivity("me.imid.fuubo","me.imid.fuubo.ui.Fuubo");
-            break;
         }
     }
 

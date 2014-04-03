@@ -3328,6 +3328,13 @@ public final class Settings {
         public static final String QUIET_HOURS_DIM = "quiet_hours_dim";
 
         /**
+         * Shortcut Items
+         *
+         * @hide
+         */
+        public static final String SHORTCUT_ITEMS = "short_items";
+
+        /**
          * HALO enabled, should default to 0 (HALO is disabled)
          * @hide
          */
