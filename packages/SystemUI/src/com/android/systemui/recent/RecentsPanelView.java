@@ -635,7 +635,7 @@ public class RecentsPanelView extends FrameLayout implements OnItemClickListener
             } else {
                 ImageView mShortCutView = new ImageView(mContext);
                 mShortCutView.setClickable(true);
-                mShortCutView.setScaleType(ScaleType.CENTER);
+                mShortCutView.setScaleType(ScaleType.CENTER_INSIDE);
                 final PackageManager pm = mContext.getPackageManager();
                 Resources mSystemUiResources = null;
                 try {
