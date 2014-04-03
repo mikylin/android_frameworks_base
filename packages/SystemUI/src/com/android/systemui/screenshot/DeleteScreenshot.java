@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 The KylinMod OpenSource Project
+ * Copyright (C) 2014 The KylinMod OpenSource Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,8 +27,8 @@ import android.widget.Toast;
 import com.android.systemui.R;
 import com.android.systemui.screenshot.GlobalScreenshot;
 
-public class TrashScreenshot extends BroadcastReceiver {
-    private static final String LOG_TAG = "TrashScreenshot";
+public class DeleteScreenshot extends BroadcastReceiver {
+    private static final String LOG_TAG = "DeleteScreenshot";
 
     // Intent extra fields
     public static final String SCREENSHOT_URI =
@@ -53,7 +53,7 @@ public class TrashScreenshot extends BroadcastReceiver {
                 (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancel(GlobalScreenshot.SCREENSHOT_NOTIFICATION_ID);
 
-        Toast.makeText(context, R.string.screenshot_trash_confirmation, Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, R.string.screenshot_delete_confirmation, Toast.LENGTH_SHORT).show();
     }
 
 }
