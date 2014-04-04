@@ -17,6 +17,7 @@
 package android.kylin.util;
 
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -30,7 +31,6 @@ import java.util.Locale;
 public class KyLinUtils {
 
     public static boolean isChineseLanguage() {
-
        return Resources.getSystem().getConfiguration().locale.getLanguage().startsWith(Locale.CHINESE.getLanguage());
     }
 
