@@ -532,7 +532,7 @@ public class SignalStrength implements Parcelable {
                 level = evdoLevel;
             } else {
                 /* We know both, use the lowest level */
-                level = cdmaLevel < evdoLevel ? cdmaLevel : evdoLevel;
+                level = cdmaLevel > evdoLevel ? cdmaLevel : evdoLevel;
             }
         }
         if (DBG) log("getLevel=" + level);
@@ -569,7 +569,7 @@ public class SignalStrength implements Parcelable {
                 asuLevel = evdoAsuLevel;
             } else {
                 /* We know both, use the lowest level */
-                asuLevel = cdmaAsuLevel < evdoAsuLevel ? cdmaAsuLevel : evdoAsuLevel;
+                asuLevel = cdmaAsuLevel > evdoAsuLevel ? cdmaAsuLevel : evdoAsuLevel;
             }
         }
         if (DBG) log("getAsuLevel=" + asuLevel);
@@ -674,10 +674,10 @@ public class SignalStrength implements Parcelable {
         int levelDbm;
         int levelEcio;
 
-        if (cdmaDbm >= -75) levelDbm = SIGNAL_STRENGTH_GREAT;
-        else if (cdmaDbm >= -85) levelDbm = SIGNAL_STRENGTH_GOOD;
-        else if (cdmaDbm >= -95) levelDbm = SIGNAL_STRENGTH_MODERATE;
-        else if (cdmaDbm >= -100) levelDbm = SIGNAL_STRENGTH_POOR;
+        if (cdmaDbm >= -85) levelDbm = SIGNAL_STRENGTH_GREAT;
+        else if (cdmaDbm >= -95) levelDbm = SIGNAL_STRENGTH_GOOD;
+        else if (cdmaDbm >= -105) levelDbm = SIGNAL_STRENGTH_MODERATE;
+        else if (cdmaDbm >= -110) levelDbm = SIGNAL_STRENGTH_POOR;
         else levelDbm = SIGNAL_STRENGTH_NONE_OR_UNKNOWN;
 
         // Ec/Io are in dB*10
@@ -687,7 +687,7 @@ public class SignalStrength implements Parcelable {
         else if (cdmaEcio >= -150) levelEcio = SIGNAL_STRENGTH_POOR;
         else levelEcio = SIGNAL_STRENGTH_NONE_OR_UNKNOWN;
 
-        int level = (levelDbm < levelEcio) ? levelDbm : levelEcio;
+        int level = levelDbm;
         if (DBG) log("getCdmaLevel=" + level);
         return level;
     }
@@ -734,10 +734,10 @@ public class SignalStrength implements Parcelable {
         int levelEvdoDbm;
         int levelEvdoSnr;
 
-        if (evdoDbm >= -65) levelEvdoDbm = SIGNAL_STRENGTH_GREAT;
-        else if (evdoDbm >= -75) levelEvdoDbm = SIGNAL_STRENGTH_GOOD;
-        else if (evdoDbm >= -90) levelEvdoDbm = SIGNAL_STRENGTH_MODERATE;
-        else if (evdoDbm >= -105) levelEvdoDbm = SIGNAL_STRENGTH_POOR;
+        if (evdoDbm >= -85) levelEvdoDbm = SIGNAL_STRENGTH_GREAT;
+        else if (evdoDbm >= -95) levelEvdoDbm = SIGNAL_STRENGTH_GOOD;
+        else if (evdoDbm >= -105) levelEvdoDbm = SIGNAL_STRENGTH_MODERATE;
+        else if (evdoDbm >= -110) levelEvdoDbm = SIGNAL_STRENGTH_POOR;
         else levelEvdoDbm = SIGNAL_STRENGTH_NONE_OR_UNKNOWN;
 
         if (evdoSnr >= 7) levelEvdoSnr = SIGNAL_STRENGTH_GREAT;
@@ -746,7 +746,7 @@ public class SignalStrength implements Parcelable {
         else if (evdoSnr >= 1) levelEvdoSnr = SIGNAL_STRENGTH_POOR;
         else levelEvdoSnr = SIGNAL_STRENGTH_NONE_OR_UNKNOWN;
 
-        int level = (levelEvdoDbm < levelEvdoSnr) ? levelEvdoDbm : levelEvdoSnr;
+        int level = levelEvdoDbm;
         if (DBG) log("getEvdoLevel=" + level);
         return level;
     }
