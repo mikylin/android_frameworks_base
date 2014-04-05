@@ -16,6 +16,41 @@
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
+    <!-- Shortcuts List -->
+    <string-array name="shortcut_list_drawables_in_systemui" translatable="false">
+        <item>clear|com.android.systemui:drawable/ic_recents_clear</item>
+        <item>com.android.deskclock|com.android.systemui:drawable/ic_shortcut_alarmclock</item>
+        <item>com.android.calculator2|com.android.systemui:drawable/ic_shortcut_calculator</item>
+        <item>com.android.camera2|com.android.systemui:drawable/ic_shortcut_camera</item>
+        <item>com.android.calendar|com.android.systemui:drawable/ic_shortcut_calendar</item>
+        <item>com.google.android.apps.maps|com.android.systemui:drawable/ic_shortcut_maps</item>
+        <item>com.andrew.apollo|com.android.systemui:drawable/ic_shortcut_music</item>
+        <item>com.tencent.mobileqq|com.android.systemui:drawable/ic_shortcut_qq</item>
+        <item>com.sina.weibo|com.android.systemui:drawable/ic_shortcut_sinaweibo</item>
+        <item>me.imid.fuubo|com.android.systemui:drawable/ic_shortcut_fuubo</item>
+        <item>com.tencent.mm|com.android.systemui:drawable/ic_shortcut_wechat</item>
+        <item>com.facebook.katana|com.android.systemui:drawable/ic_shortcut_facebook</item>
+        <item>com.twitter.android|com.android.systemui:drawable/ic_shortcut_twitter</item>
+        <item>com.google.android.apps.plus|com.android.systemui:drawable/ic_shortcut_googleplus</item>
+    </string-array>
+
+    <string-array name="shortcut_list_items" translatable="false">
+        <item>clear</item>
+        <item>com.android.deskclock</item>
+        <item>com.android.calculator2</item>
+        <item>com.android.camera2</item>
+        <item>com.android.calendar</item>
+        <item>com.google.android.apps.maps</item>
+        <item>com.andrew.apollo</item>
+        <item>com.tencent.mobileqq</item>
+        <item>com.sina.weibo</item>
+        <item>me.imid.fuubo</item>
+        <item>com.tencent.mm</item>
+        <item>com.facebook.katana</item>
+        <item>com.twitter.android</item>
+        <item>com.google.android.apps.plus</item>
+    </string-array>
+
     <!-- Lunar -->
     <string-array name="animals">
         <item>鼠</item>

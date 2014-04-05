@@ -1874,6 +1874,11 @@ public final class Settings {
         public static final String SCREEN_OFF_TIMEOUT = "screen_off_timeout";
 
         /**
+         * The last timeout before the screen turns off option used.
+         */
+        public static final String SCREEN_OFF_TIMEOUT_OLD = "screen_off_timeout_old";
+
+        /**
          * The screen backlight brightness between 0 and 255.
          */
         public static final String SCREEN_BRIGHTNESS = "screen_brightness";
@@ -3326,6 +3331,32 @@ public final class Settings {
          * @hide
          */
         public static final String QUIET_HOURS_DIM = "quiet_hours_dim";
+
+        /**
+         * Shortcut Items
+         *
+         * @hide
+         */
+        public static final String SHORTCUT_ITEMS = "short_items";
+
+        /**
+         * Shortcut Items Gravity
+         *
+         * 0 right | top
+         * 1 right | bottom
+         * 2 left | top
+         * 3 left | bottom
+         *
+         * @hide
+         */
+        public static final String SHORTCUT_ITEMS_GRAVITY = "short_items_gravity";
+
+        /**
+         * Shortcut Items exclude app
+         *
+         * @hide
+         */
+        public static final String SHORTCUT_ITEMS_EXCLUDED_APPS = "short_items_excluded_apps";
 
         /**
          * HALO enabled, should default to 0 (HALO is disabled)

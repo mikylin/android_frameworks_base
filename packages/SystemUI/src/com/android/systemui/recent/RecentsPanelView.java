@@ -51,9 +51,11 @@ import android.os.Bundle;
 import android.os.RemoteException;
 import android.os.UserHandle;
 import android.provider.Settings;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.IWindowManager;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -87,14 +89,15 @@ import com.android.systemui.statusbar.phone.PhoneStatusBar;
 import com.android.internal.util.MemInfoReader;
 
 import java.util.ArrayList;
-import java.util.List;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-public class RecentsPanelView extends FrameLayout implements OnClickListener, OnItemClickListener, RecentsCallback,
+public class RecentsPanelView extends FrameLayout implements OnItemClickListener, RecentsCallback,
         StatusBarPanel, Animator.AnimatorListener {
     static final String TAG = "RecentsPanelView";
     static final boolean DEBUG = PhoneStatusBar.DEBUG || false;
@@ -121,20 +124,11 @@ public class RecentsPanelView extends FrameLayout implements OnClickListener, On
     private int mRecentItemLayoutId;
     private boolean mHighEndGfx;
     private ImageView mClearRecents;
+    private ImageView mFirstShortcut;
+    private ImageView mLastShortcut;
 
     private ScrollView mShortcutBar;
-    private ImageView mAlarmClock;
-    private ImageView mCalculator;
-    private ImageView mCalendar;
-    private ImageView mMaps;
-    private ImageView mMusic;
-    private ImageView mFacebook;
-    private ImageView mGooglePlus;
-    private ImageView mQQ;
-    private ImageView mSinaWeibo;
-    private ImageView mTwitter;
-    private ImageView mWeChat;
-    private ImageView mFuubo;
+    private LinearLayout mShortcutList;
 
     private int mDragPositionX;
     private int mDragPositionY;
@@ -402,6 +396,7 @@ public class RecentsPanelView extends FrameLayout implements OnClickListener, On
             mWaitingForWindowAnimation = animateIconOfFirstTask;
         }
         if (show) {
+            refreshShortcutList();
             mWaitingToShow = true;
             refreshRecentTasksList(recentTaskDescriptions, firstScreenful);
             showIfReady();
@@ -439,7 +434,9 @@ public class RecentsPanelView extends FrameLayout implements OnClickListener, On
             mShortcutBar.setVisibility(noApps ? View.GONE : View.VISIBLE);
             mRecentsNoApps.setAlpha(1f);
             mRecentsNoApps.setVisibility(noApps ? View.VISIBLE : View.INVISIBLE);
-            mClearRecents.setVisibility(noApps ? View.GONE : View.VISIBLE);
+            /* if (mClearRecents != null) {
+                mClearRecents.setVisibility(noApps ? View.GONE : View.VISIBLE);
+            } */
             onAnimationEnd(null);
             setFocusable(true);
             setFocusableInTouchMode(true);
@@ -602,37 +599,10 @@ public class RecentsPanelView extends FrameLayout implements OnClickListener, On
         mRecentsNoApps = findViewById(R.id.recents_no_apps);
         //mRecentsRamBar = findViewById(R.id.recents_ram_bar);
 
-        mClearRecents = (ImageView) findViewById(R.id.recents_clear);
         mShortcutBar = (ScrollView) findViewById(R.id.shortcut_bar);
-        mAlarmClock = (ImageView) findViewById(R.id.shortcut_alarmclock);
-        mCalculator = (ImageView) findViewById(R.id.shortcut_calculator);
-        mCalendar = (ImageView) findViewById(R.id.shortcut_calendar);
-        mMaps = (ImageView) findViewById(R.id.shortcut_maps);
-        mMusic = (ImageView) findViewById(R.id.shortcut_music);
-        mFacebook = (ImageView) findViewById(R.id.shortcut_facebook);
-        mGooglePlus = (ImageView) findViewById(R.id.shortcut_googleplus);
-        mQQ = (ImageView) findViewById(R.id.shortcut_qq);
-        mSinaWeibo = (ImageView) findViewById(R.id.shortcut_sinaweibo);
-        mTwitter = (ImageView) findViewById(R.id.shortcut_twitter);
-        mWeChat = (ImageView) findViewById(R.id.shortcut_wechat);
-        mFuubo = (ImageView) findViewById(R.id.shortcut_fuubo);
-
-        if (mClearRecents != null){
-            mClearRecents.setOnClickListener(this);
-        }
-        setShortcurtEnable(mAlarmClock, "com.android.deskclock");
-        setShortcurtEnable(mCalculator, "com.android.calculator2");
-        setShortcurtEnable(mCalendar, "com.android.calendar");
-        setShortcurtEnable(mMaps, "com.google.android.apps.maps");
-        setShortcurtEnable(mMusic, "com.andrew.apollo");
-        setShortcurtEnable(mFacebook, "com.facebook.katana");
-        setShortcurtEnable(mGooglePlus, "com.google.android.apps.plus");
-        setShortcurtEnable(mQQ, "com.tencent.mobileqq");
-        setShortcurtEnable(mSinaWeibo, "com.sina.weibo");
-        setShortcurtEnable(mTwitter, "com.twitter.android");
-        setShortcurtEnable(mWeChat, "com.tencent.mm");
-        setShortcurtEnable(mFuubo, "me.imid.fuubo");
-
+        mShortcutList = (LinearLayout) findViewById(R.id.shortcut_list);
+        refreshShortcutList();
+        
         if (mRecentsScrim != null) {
             mHighEndGfx = ActivityManager.isHighEndGfx();
             if (!mHighEndGfx) {
@@ -642,13 +612,119 @@ public class RecentsPanelView extends FrameLayout implements OnClickListener, On
                 ((BitmapDrawable) mRecentsScrim.getBackground()).setTileModeY(TileMode.REPEAT);
             }
         }
-	updateRamBar();
     }
 
-    private void setShortcurtEnable (ImageView imageView, String packageName) {
-        if (imageView != null){
-            imageView.setVisibility(KyLinUtils.isApkInstalled(packageName, mContext) ? ImageView.VISIBLE : ImageView.GONE );
-            imageView.setOnClickListener(this);
+    private void refreshShortcutList(){
+        // Shortcut items init
+        mShortcutList.removeAllViews();
+        ContentResolver mContentResolver = mContext.getContentResolver();
+        String shortcutItemString = Settings.System.getStringForUser(mContentResolver, Settings.System.SHORTCUT_ITEMS, UserHandle.USER_CURRENT);
+        String [] mShortcutListItems;
+        if (!TextUtils.isEmpty(shortcutItemString)) {
+            mShortcutListItems = shortcutItemString.split(",");
+        } else {
+            mShortcutListItems = mContext.getResources().getStringArray(com.android.internal.R.array.shortcut_list_items);
+            shortcutItemString = "";
+            for (String item : mShortcutListItems) {
+                shortcutItemString = shortcutItemString + item + ",";
+            }
+            shortcutItemString = shortcutItemString.substring(0, shortcutItemString.length() - 1);
+            Settings.System.putStringForUser(mContentResolver, Settings.System.SHORTCUT_ITEMS, shortcutItemString, UserHandle.USER_CURRENT);
+        }
+        if (mContext.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            ScrollView.LayoutParams layoutParams = new ScrollView.LayoutParams(mShortcutBar.getLayoutParams());
+            int layoutGravity = Settings.System.getIntForUser(mContentResolver, Settings.System.SHORTCUT_ITEMS_GRAVITY, 0, UserHandle.USER_CURRENT);
+            switch (layoutGravity) {
+                case 0:
+                    layoutParams.gravity = Gravity.TOP | Gravity.RIGHT;
+                    mShortcutList.setGravity(Gravity.TOP);
+                    setShortcutListInTop(mShortcutListItems, mContentResolver);
+                    break;
+                case 1:
+                    layoutParams.gravity = Gravity.BOTTOM | Gravity.RIGHT;
+                    mShortcutList.setGravity(Gravity.BOTTOM);
+                    setShortcutListInBottom(mShortcutListItems, mContentResolver);
+                    break;
+                case 2:
+                    layoutParams.gravity = Gravity.TOP | Gravity.LEFT;
+                    mShortcutList.setGravity(Gravity.TOP);
+                    setShortcutListInTop(mShortcutListItems, mContentResolver);
+                    break;
+                case 3:
+                    layoutParams.gravity = Gravity.BOTTOM | Gravity.LEFT;
+                    mShortcutList.setGravity(Gravity.BOTTOM);
+                    setShortcutListInBottom(mShortcutListItems, mContentResolver);
+                    break;
+            }
+            mShortcutBar.setLayoutParams(layoutParams);
+        } else {
+            setShortcutListInTop(mShortcutListItems, mContentResolver);
+        }
+        mFirstShortcut = (ImageView)mShortcutList.getChildAt(0);
+        mLastShortcut = (ImageView)mShortcutList.getChildAt(mShortcutList.getChildCount() - 1);
+        requestFitSystemWindows();
+    };
+
+    private void setShortcutListInTop(String[] mShortcutListItems, ContentResolver mContentResolver) {
+        for (int i = 0; i < mShortcutListItems.length; i++) {
+            setShortcutList(mShortcutListItems, mContentResolver, i);
+        }
+    }
+
+    private void setShortcutListInBottom(String[] mShortcutListItems, ContentResolver mContentResolver) {
+        for (int i = mShortcutListItems.length - 1; i >= 0; i--){
+            setShortcutList(mShortcutListItems, mContentResolver, i);
+            mShortcutBar.fullScroll(ScrollView.FOCUS_DOWN);
+        }
+    }
+
+    private void setShortcutList(String[] mShortcutListItems, ContentResolver mContentResolver, int index){
+        final String packageName = mShortcutListItems[index];
+        String excluded = Settings.System.getString(mContentResolver, Settings.System.SHORTCUT_ITEMS_EXCLUDED_APPS);
+        excluded = TextUtils.isEmpty(excluded) ? "none excluded apps" : excluded;
+        if (!packageName.equals("clear") && !KyLinUtils.isApkInstalledAndEnabled(packageName, mContext) || excluded.contains(packageName)) {
+        } else {
+            ImageView mShortCutView = new ImageView(mContext);
+            mShortCutView.setClickable(true);
+            mShortCutView.setScaleType(ScaleType.CENTER_INSIDE);
+            final PackageManager pm = mContext.getPackageManager();
+            Resources mSystemUiResources = null;
+            try {
+                mSystemUiResources = pm.getResourcesForApplication("com.android.systemui");
+            } catch (NameNotFoundException e) {
+            }
+            if (mSystemUiResources != null) {
+                String [] resPathArray = mContext.getResources().getStringArray(com.android.internal.R.array.shortcut_list_drawables_in_systemui);
+                String resPath = "";
+                for (String resPathStr : resPathArray) {
+                    String[] resItem = resPathStr.split("\\|");
+                    if (resItem[0].equals(packageName)) {
+                        resPath = resItem[1];
+                    }
+                }
+                int resId = mSystemUiResources.getIdentifier(resPath, null, null);
+                Drawable d = mSystemUiResources.getDrawable(resId);
+                mShortCutView.setImageDrawable(d);
+            }
+            mShortCutView.setLayoutParams(new ViewGroup.LayoutParams(mShortcutBar.getLayoutParams().width, mShortcutBar.getLayoutParams().width));
+            if (packageName.equals("clear")) {
+                mClearRecents = mShortCutView;
+                mShortCutView.setOnClickListener(new OnClickListener(){
+                    @Override
+                    public void onClick(View view) {
+                        clearAllNonLocked();
+                    }});
+            } else {
+                mShortCutView.setOnClickListener(new OnClickListener(){
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = pm.getLaunchIntentForPackage(packageName);
+                        ComponentName cn = intent.getComponent();
+                        String className = cn.getClassName();
+                        startApplicationActivity(packageName, className);
+                    }});
+            }
+            mShortcutList.addView(mShortCutView);
         }
     }
 
@@ -677,53 +753,6 @@ public class RecentsPanelView extends FrameLayout implements OnClickListener, On
         }
     }
 
-    @Override
-    public void onClick(View v) {
-        int value = v.getId();
-        switch (v.getId()) {
-        case R.id.recents_clear:
-            // mRecentsContainer.removeAllViewsInLayout();
-            clearAllNonLocked();
-            break;
-        case R.id.shortcut_alarmclock:
-            startApplicationActivity("com.android.deskclock","com.android.deskclock.DeskClock");
-            break;
-        case R.id.shortcut_calculator:
-            startApplicationActivity("com.android.calculator2","com.android.calculator2.Calculator");
-            break;
-        case R.id.shortcut_calendar:
-            startApplicationActivity("com.android.calendar","com.android.calendar.LaunchActivity");
-            break;
-        case R.id.shortcut_maps:
-            startApplicationActivity("com.google.android.apps.maps","com.google.android.maps.MapsActivity");
-            break;
-        case R.id.shortcut_music:
-            startApplicationActivity("com.andrew.apollo","com.andrew.apollo.ui.activities.HomeActivity");
-            break;
-        case R.id.shortcut_facebook:
-            startApplicationActivity("com.facebook.katana","com.facebook.katana.LoginActivity");
-            break;
-        case R.id.shortcut_googleplus:
-            startApplicationActivity("com.google.android.apps.plus","com.google.android.apps.plus.phone.HomeActivity");
-            break;
-        case R.id.shortcut_qq:
-            startApplicationActivity("com.tencent.mobileqq","com.tencent.mobileqq.activity.SplashActivity");
-            break;
-        case R.id.shortcut_sinaweibo:
-            startApplicationActivity("com.sina.weibo","com.sina.weibo.SplashActivity");
-            break;
-        case R.id.shortcut_twitter:
-            startApplicationActivity("com.twitter.android","com.twitter.android.StartActivity");
-            break;
-        case R.id.shortcut_wechat:
-            startApplicationActivity("com.tencent.mm","com.tencent.mm.ui.LauncherUI");
-            break;
-        case R.id.shortcut_fuubo:
-            startApplicationActivity("me.imid.fuubo","me.imid.fuubo.ui.Fuubo");
-            break;
-        }
-    }
-
     /**
      * Iterates over all the children in the recents scroll view linear layout and does not
      * remove a view if isLocked is true.
@@ -745,6 +774,7 @@ public class RecentsPanelView extends FrameLayout implements OnClickListener, On
                     }, i * 150);
                 }
             }
+            count = ((RecentsVerticalScrollView) mRecentsContainer).getLinearLayoutChildCount();
         } else if (mRecentsContainer instanceof RecentsHorizontalScrollView) {
             count = ((RecentsHorizontalScrollView) mRecentsContainer).getLinearLayoutChildCount();
             for (int i = 0; i < count; i++) {
@@ -760,6 +790,10 @@ public class RecentsPanelView extends FrameLayout implements OnClickListener, On
                     }, i * 150);
                 }
             }
+            count = ((RecentsHorizontalScrollView) mRecentsContainer).getLinearLayoutChildCount();
+        }
+        if (count == 0) {
+            mShortcutBar.setVisibility(View.GONE);
         }
     }
 
@@ -1468,11 +1502,18 @@ public class RecentsPanelView extends FrameLayout implements OnClickListener, On
 
     @Override
     protected boolean fitSystemWindows(Rect insets) {
-        if (mClearRecents != null) {
-            MarginLayoutParams lp = (MarginLayoutParams) mClearRecents.getLayoutParams();
+        if (mFirstShortcut != null) {
+            MarginLayoutParams lp = (MarginLayoutParams) mFirstShortcut.getLayoutParams();
             lp.topMargin = insets.top;
             lp.rightMargin = insets.right;
-            mClearRecents.setLayoutParams(lp);
+            mFirstShortcut.setLayoutParams(lp);
+        }
+
+        if (mLastShortcut != null) {
+            MarginLayoutParams lp = (MarginLayoutParams) mLastShortcut.getLayoutParams();
+            lp.bottomMargin = insets.bottom;
+            lp.rightMargin = insets.right;
+            mLastShortcut.setLayoutParams(lp);
         }
 
         return super.fitSystemWindows(insets);
