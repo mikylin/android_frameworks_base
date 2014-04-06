@@ -612,6 +612,7 @@ public class RecentsPanelView extends FrameLayout implements OnItemClickListener
                 ((BitmapDrawable) mRecentsScrim.getBackground()).setTileModeY(TileMode.REPEAT);
             }
         }
+        updateRamBar();
     }
 
     private void refreshShortcutList(){
@@ -1341,6 +1342,27 @@ public class RecentsPanelView extends FrameLayout implements OnItemClickListener
         mRecentsContainer.drawFadedEdges(canvas, left, right, top, bottom);
     }
 
+    @Override
+    protected boolean fitSystemWindows(Rect insets) {
+        if (mFirstShortcut != null) {
+            MarginLayoutParams lp = (MarginLayoutParams) mFirstShortcut.getLayoutParams();
+            lp.topMargin = insets.top;
+            lp.rightMargin = insets.right;
+            mFirstShortcut.setLayoutParams(lp);
+        }
+
+        if (mLastShortcut != null) {
+            MarginLayoutParams lp = (MarginLayoutParams) mLastShortcut.getLayoutParams();
+            lp.bottomMargin = insets.bottom;
+            lp.rightMargin = insets.right;
+            mLastShortcut.setLayoutParams(lp);
+        }
+
+        return super.fitSystemWindows(insets);
+    }
+
+    class FakeClearUserDataObserver extends IPackageDataObserver.Stub {
+        public void onRemoveCompleted(final String packageName, final boolean succeeded) {
     private void updateRamBar() {
         mRamUsageBar = (LinearColorBar) findViewById(R.id.ram_usage_bar);
 
@@ -1490,30 +1512,6 @@ public class RecentsPanelView extends FrameLayout implements OnItemClickListener
             return reader.readLine();
         } finally {
             reader.close();
-        }
-    }
-
-    @Override
-    protected boolean fitSystemWindows(Rect insets) {
-        if (mFirstShortcut != null) {
-            MarginLayoutParams lp = (MarginLayoutParams) mFirstShortcut.getLayoutParams();
-            lp.topMargin = insets.top;
-            lp.rightMargin = insets.right;
-            mFirstShortcut.setLayoutParams(lp);
-        }
-
-        if (mLastShortcut != null) {
-            MarginLayoutParams lp = (MarginLayoutParams) mLastShortcut.getLayoutParams();
-            lp.bottomMargin = insets.bottom;
-            lp.rightMargin = insets.right;
-            mLastShortcut.setLayoutParams(lp);
-        }
-
-        return super.fitSystemWindows(insets);
-    }
-
-    class FakeClearUserDataObserver extends IPackageDataObserver.Stub {
-        public void onRemoveCompleted(final String packageName, final boolean succeeded) {
         }
     }
 }
