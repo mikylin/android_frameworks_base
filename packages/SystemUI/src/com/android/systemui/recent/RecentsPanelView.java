@@ -1363,6 +1363,9 @@ public class RecentsPanelView extends FrameLayout implements OnItemClickListener
 
     class FakeClearUserDataObserver extends IPackageDataObserver.Stub {
         public void onRemoveCompleted(final String packageName, final boolean succeeded) {
+        }
+    }
+
     private void updateRamBar() {
         mRamUsageBar = (LinearColorBar) findViewById(R.id.ram_usage_bar);
 
