@@ -24,8 +24,8 @@
     android:id="@+id/recents_root"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:foreground="@drawable/bg_protect"
     android:layout_marginTop="-25dp"
+    android:foreground="@drawable/bg_protect"
     systemui:recentItemLayout="@layout/status_bar_recent_item"
     android:fitsSystemWindows="true"
     >
@@ -123,12 +123,12 @@
 	            android:fillViewport="true">
 
 	    	    <LinearLayout
-                    android:id="@+id/shortcut_list"
-	    	        android:orientation="vertical"
-	    	        android:layout_width="match_parent"
-		            android:layout_height="match_parent">
+		        android:id="@+id/shortcut_list"
+		        android:orientation="vertical"
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent">
 
-	        	</LinearLayout>
+	    	    </LinearLayout>
 
             </ScrollView>
 
