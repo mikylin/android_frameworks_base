@@ -26,6 +26,7 @@ import static com.android.systemui.statusbar.phone.BarTransitions.MODE_OPAQUE;
 import static com.android.systemui.statusbar.phone.BarTransitions.MODE_SEMI_TRANSPARENT;
 import static com.android.systemui.statusbar.phone.BarTransitions.MODE_TRANSLUCENT;
 import static com.android.systemui.statusbar.phone.BarTransitions.MODE_LIGHTS_OUT;
+import static com.android.systemui.statusbar.phone.BarTransitions.MODE_TRANSPARENT;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -151,6 +152,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
     public static final String ACTION_STATUSBAR_START
             = "com.android.internal.policy.statusbar.START";
+
+    public static final String MODLOCK_STATE
+             = "com.android.keyguard.modlock.STATE";
 
     private static final int MSG_OPEN_NOTIFICATION_PANEL = 1000;
     private static final int MSG_CLOSE_PANELS = 1001;
@@ -343,6 +347,8 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
     DisplayMetrics mDisplayMetrics = new DisplayMetrics();
 
+    boolean mTransparentNav = false;
+
     // XXX: gesture research
     private final GestureRecorder mGestureRec = DEBUG_GESTURES
         ? new GestureRecorder("/sdcard/statusbar_gestures.dat")
@@ -442,7 +448,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
     private void forceAddNavigationBar() {
         // If we have no Navbar view and we should have one, create it
-        if (mNavigationBarView != null || mRecreating) {
+        if (mNavigationBarView != null) {
             return;
         }
 
@@ -1013,6 +1019,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         filter.addAction(Intent.ACTION_SCREEN_OFF);
         filter.addAction(Intent.ACTION_SCREEN_ON);
         filter.addAction(ACTION_DEMO);
+        filter.addAction(MODLOCK_STATE);
         context.registerReceiver(mBroadcastReceiver, filter);
 
         // listen for USER_SETUP_COMPLETE setting (per-user)
@@ -3241,6 +3248,12 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                     }
                 }
             }
+            else if (MODLOCK_STATE.equals(action)) {
+                boolean showing = intent.getBooleanExtra("showing", false);
+                if (null != mNavigationBarView) {
+                    mNavigationBarView.getBarTransitions().applyTransparent(showing);
+                }
+            }
         }
     };
 
@@ -3450,6 +3463,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             addNotificationViews(createNotificationViews(notifData.first, notifData.second));
         }
 
+        updateSettings();
         setAreThereNotifications();
 
         mStatusBarContainer.addView(mStatusBarWindow);
@@ -3495,7 +3509,10 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
         // Update the QuickSettings container
         if (mQS != null) mQS.updateResources();
-
+        if (mNavigationBarView != null)  {
+            mNavigationBarView.updateResources();
+            updateSearchPanel();
+        }
     }
 
     protected void loadDimens() {
