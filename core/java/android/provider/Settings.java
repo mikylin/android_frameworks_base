@@ -3720,18 +3720,6 @@ public final class Settings {
         public static final String LOCKSCREEN_LONG_MENU_ACTION = "lockscreen_long_menu_action";
 
         /**
-         * Sets the lockscreen background style
-         * @hide
-         */
-        public static final String LOCKSCREEN_BACKGROUND_STYLE = "lockscreen_background_style";
-
-        /**
-         * Color for lockscreen background when set to color fill
-         * @hide
-         */
-        public static final String LOCKSCREEN_BACKGROUND_COLOR = "lockscreen_background_color";
-
-        /**
          * Expanded desktop on/off state
          * @hide
          */
