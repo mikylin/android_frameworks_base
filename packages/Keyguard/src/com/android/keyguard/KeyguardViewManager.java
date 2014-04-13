@@ -19,6 +19,7 @@ package com.android.keyguard;
 import java.io.File;
 
 import android.app.PendingIntent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.TransitionDrawable;
@@ -28,7 +29,6 @@ import com.android.internal.widget.LockPatternUtils;
 
 import android.app.Activity;
 import android.app.ActivityManager;
-import android.app.PendingIntent;
 import android.app.WallpaperManager;
 import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
@@ -39,13 +39,12 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.os.Bundle;
@@ -285,7 +284,6 @@ public class KeyguardViewManager {
                 mTransitionBackground.startTransition(200);
 
                 mCustomBackground = newIsNull ? null : dd;
-        }
 
             }
             invalidate();
